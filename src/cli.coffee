@@ -11,49 +11,13 @@ fspath = require 'path'
 # include alinex modules
 config = require 'alinex-config'
 Exec = require 'alinex-exec'
+{string} = require 'alinex-util'
 # include classes and helpers
 logo = require('alinex-core').logo 'Script Console'
 schema = require './configSchema'
 
 process.title = 'Scripter'
 
-# Start argument parsing
-# -------------------------------------------------
-argv = yargs
-.usage("""
-  #{logo}
-  Usage: $0 <command> [options]
-  """)
-# examples
-.example('$0 <command>', 'to simply run the command script')
-# general options
-.alias('C', 'nocolors')
-.describe('C', 'turn of color output')
-.boolean('C')
-.alias('v', 'verbose')
-.describe('v', 'run in verbose mode (multiple makes more verbose)')
-.count('verbose')
-.alias('m', 'mail')
-.describe('t', 'try run which wont change the emails')
-.boolean('t')
-# general help
-.help('h')
-.alias('h', 'help')
-.epilogue("For more information, look into the man page.")
-.showHelpOnFail(false, "Specify --help for available options")
-# commands
-argv.command 'compile', 'compile new coffee scripts'
-argv.strict()
-.fail (err) ->
-  console.error """
-    #{logo}
-    #{chalk.red.bold 'CLI Parameter Failure:'} #{chalk.red err}
-
-    """
-  process.exit 1
-.argv
-# implement some global switches
-chalk.enabled = false if argv.nocolors
 
 # Error management
 # -------------------------------------------------
@@ -63,11 +27,7 @@ exit = (code = 0, err) ->
   # exit with error
   console.error chalk.red.bold "FAILED: #{err.message}"
   console.error err.description if err.description
-  process.exit code unless argv.daemon
-  argv.daemon = false
-  setTimeout ->
-    process.exit code
-  , 2000
+  process.exit code
 
 process.on 'SIGINT', -> exit 130, new Error "Got SIGINT signal"
 process.on 'SIGTERM', -> exit 143, new Error "Got SIGTERM signal"
@@ -77,12 +37,100 @@ process.on 'SIGABRT', -> exit 134, new Error "Got SIGABRT signal"
 process.on 'exit', ->
   console.log "Goodbye\n"
 
+# General commands
+# -------------------------------------------------
+compile = (yargs) ->
+  job = 'compile'
+  console.log 'compile'
+  argv = yargs
+  .usage "\nUsage: $0 <job> [options]"
+  .alias 'c', 'compile'
+#  .demand 1
+  # examples
+#  .example '$0 <command>', 'to simply run the command script'
+
+  .strict()
+  .fail (err) ->
+    err = new Error "CLI #{err} for #{job}"
+    err.description = 'Specify --help for available options'
+    exit 1, err
+  # help
+  .help 'h'
+  .alias 'h', 'help'
+  .epilogue "For more information, look into the man page."
+  .argv
+  console.log 'compile', argv
+
+ccc =
+  builder: (yargs) ->
+    job = 'test'
+    console.log 'compile'
+    yargs
+    .demand 1
+    .usage "\nUsage: $0 <job> [options]"
+    .option 'test',
+      alias: 't'
+      type: 'string'
+    .group 't', "#{string.ucFirst job} specific:"
+    # help
+    .help 'h'
+    .alias 'h', 'help'
+    .epilogue "For more information, look into the man page."
+#    .strict()
+  handler: (argv) ->
+    console.log 'test'
+    console.log argv
+
 # Main routine
 # -------------------------------------------------
 console.log logo
 console.log "Initializing..."
 
+# Start argument parsing
+args = yargs
+.usage "\nUsage: $0 <job> [options]"
+# examples
+.example '$0 <job>', 'to simply run the job script'
+# general options
+.env 'SCRIPTER'
+.options
+  help:
+    alias: 'h',
+    description: 'display help message'
+  nocolors:
+    alias: 'C'
+    describe: 'turn of color output'
+    type: 'boolean'
+    global: true
+  verbose:
+    alias: 'v'
+    describe: 'run in verbose mode (multiple makes more verbose)'
+    count: true
+    global: true
+  mail:
+    alias: 'm'
+    describe: 'try run which wont change the emails'
+    global: true
+# commands
+.command 'compile', 'compile new coffee scripts'#, compile
+.command 'test', 'testing...', ccc
+# help
+.help 'help'
+.group ['m'], 'App Specific:'
+.updateStrings
+  'Options:': 'General Options:'
+  'Commands:': 'Jobs:'
+.epilogue "For more information, look into the man page."
+# validation
+.strict()
+.fail (err) ->
+  err = new Error "CLI #{err}"
+  err.description = 'Specify --help for available options'
+  exit 1, err
+.argv
+# implement some global switches
+chalk.enabled = false if args.nocolors
 
-console.log "Starting #{argv}..."
+console.log "Starting main routine..."
 util = require 'util'
-console.log argv.command
+console.log args
