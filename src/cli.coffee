@@ -39,28 +39,6 @@ process.on 'exit', ->
 
 # General commands
 # -------------------------------------------------
-compile = (yargs) ->
-  job = 'compile'
-  console.log 'compile'
-  argv = yargs
-  .usage "\nUsage: $0 <job> [options]"
-  .alias 'c', 'compile'
-#  .demand 1
-  # examples
-#  .example '$0 <command>', 'to simply run the command script'
-
-  .strict()
-  .fail (err) ->
-    err = new Error "CLI #{err} for #{job}"
-    err.description = 'Specify --help for available options'
-    exit 1, err
-  # help
-  .help 'h'
-  .alias 'h', 'help'
-  .epilogue "For more information, look into the man page."
-  .argv
-  console.log 'compile', argv
-
 ccc =
   builder: (yargs) ->
     job = 'test'
@@ -68,18 +46,19 @@ ccc =
     yargs
     .demand 1
     .usage "\nUsage: $0 <job> [options]"
-    .option 'test',
-      alias: 't'
+    .option 'xtest',
+      alias: 'x'
       type: 'string'
-    .group 't', "#{string.ucFirst job} specific:"
+    .group 'x', "#{string.ucFirst job} specific:"
     # help
     .help 'h'
     .alias 'h', 'help'
     .epilogue "For more information, look into the man page."
-#    .strict()
-  handler: (argv) ->
+    .strict()
+  handler: (args) ->
     console.log 'test'
-    console.log argv
+    console.log args
+    exit 0
 
 # Main routine
 # -------------------------------------------------
