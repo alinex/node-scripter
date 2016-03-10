@@ -5,13 +5,15 @@
 # -------------------------------------------------
 
 # include base modules
+debug = require('debug') 'scripter'
 yargs = require 'yargs'
 chalk = require 'chalk'
-fspath = require 'path'
+path = require 'path'
 # include alinex modules
 config = require 'alinex-config'
 Exec = require 'alinex-exec'
 {string} = require 'alinex-util'
+fs = require 'alinex-fs'
 # include classes and helpers
 logo = require('alinex-core').logo 'Script Console'
 schema = require './configSchema'
@@ -37,7 +39,7 @@ process.on 'SIGABRT', -> exit 134, new Error "Got SIGABRT signal"
 process.on 'exit', ->
   console.log "Goodbye\n"
 
-# General commands
+# Jobs
 # -------------------------------------------------
 ccc =
   builder: (yargs) ->
@@ -49,7 +51,7 @@ ccc =
     .option 'xtest',
       alias: 'x'
       type: 'string'
-    .group 'x', "#{string.ucFirst job} specific:"
+    .group 'x', "#{string.ucFirst job} Job Options:"
     # help
     .help 'h'
     .alias 'h', 'help'
@@ -90,26 +92,41 @@ args = yargs
     alias: 'm'
     describe: 'try run which wont change the emails'
     global: true
-# commands
-.command 'compile', 'compile new coffee scripts'#, compile
-.command 'test', 'testing...', ccc
-# help
-.help 'help'
-.group ['m'], 'App Specific:'
-.updateStrings
-  'Options:': 'General Options:'
-  'Commands:': 'Jobs:'
-.epilogue "For more information, look into the man page."
-# validation
-.strict()
-.fail (err) ->
-  err = new Error "CLI #{err}"
-  err.description = 'Specify --help for available options'
-  exit 1, err
-.argv
-# implement some global switches
-chalk.enabled = false if args.nocolors
+  update:
+    alias: 'u'
+    describe: 'update scripts'
+    type: 'boolean'
+.group ['u'], 'Core Options:'
+# commands (jobs)
+target = path.join path.dirname(__dirname), 'var/lib/script'
+fs.find target,
+  include: '*.js'
+, (err, list) ->
+  exit err if err
+  for script in list
+    lib = require script
+    debug "loaded #{script}"
+    args.command path.basename(script, path.extname script), lib.description, lib
+  #.command 'compile', 'compile new coffee scripts'#, compile
+  #.command 'test', 'testing...', ccc
+  # help
+  args.help 'help'
+  .updateStrings
+    'Options:': 'General Options:'
+    'Commands:': 'Jobs:'
+  .epilogue "For more information, look into the man page."
+  # validation
+  .strict()
+  .fail (err) ->
+    err = new Error "CLI #{err}"
+    err.description = 'Specify --help for available options'
+    exit 1, err
+  .argv
+  # implement some global switches
+  chalk.enabled = false if args.nocolors
 
-console.log "Starting main routine..."
-util = require 'util'
-console.log args
+  console.log "Starting main routine..."
+  unless args.update
+    exit 1, new Error "Nothing to do specify --help for available options"
+  # update scripts
+  require('./update')()
