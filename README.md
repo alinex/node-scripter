@@ -19,7 +19,7 @@ So you mainly concentrate on your functional work and get
 It can be started from command line or triggered using cron.
 
 > It is one of the modules of the [Alinex Universe](http://alinex.github.io/code.html)
-> following the code standards defined in the [General Docs](http://alinex.github.io/node-alinex).
+> following the code standards defined in the [General Docs](http://alinex.github.io/develop).
 
 
 Install
@@ -69,7 +69,14 @@ To add functionality you have to write your own scripts like:
 
     comming soon...
 
-This script has to be stored in `/etc/scripter/script` as JavaScript or CoffeeScript.
+This script has to be stored in
+
+- subfolder `var/script`
+- `/etc/scripter/script`
+- `~/.scripter/script`
+
+as JavaScript or CoffeeScript.
+
 To include them you have to call the scripter once with it's `--update` option:
 
     > scripter --update

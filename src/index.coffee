@@ -9,10 +9,25 @@
 
 # include base modules
 # include alinex modules
+report = require 'alinex-report'
 # include classes and helpers
 
+
+# Helper
+# -------------------------------------------------
+init = (cb) ->
+  cb()
+
+
+# Get the job
+# -------------------------------------------------
 exports.job = (name, file) ->
   lib = require file
+  # add general yargs settup
+
+  # setup module
+  lib.report = new Report()
+
   #-> (ya)
 
 
