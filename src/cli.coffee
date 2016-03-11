@@ -5,7 +5,6 @@
 # -------------------------------------------------
 
 # include base modules
-debug = require('debug') 'scripter'
 yargs = require 'yargs'
 chalk = require 'chalk'
 path = require 'path'
@@ -68,9 +67,10 @@ console.log logo
 console.log "Initializing..."
 
 # Start argument parsing
-args = yargs
+yargs
 .usage "\nUsage: $0 <job> [options]"
 # examples
+.example '$0 --update', 'to initialize and update the scripts'
 .example '$0 <job>', 'to simply run the job script'
 # general options
 .env 'SCRIPTER'
@@ -92,41 +92,36 @@ args = yargs
     alias: 'm'
     describe: 'try run which wont change the emails'
     global: true
+    type: 'string'
   update:
     alias: 'u'
     describe: 'update scripts'
     type: 'boolean'
 .group ['u'], 'Core Options:'
-# commands (jobs)
-target = path.join path.dirname(__dirname), 'var/lib/script'
-fs.find target,
-  include: '*.js'
-, (err, list) ->
-  exit err if err
-  for script in list
-    lib = require script
-    debug "loaded #{script}"
-    args.command path.basename(script, path.extname script), lib.description, lib
-  #.command 'compile', 'compile new coffee scripts'#, compile
-  #.command 'test', 'testing...', ccc
-  # help
-  args.help 'help'
-  .updateStrings
-    'Options:': 'General Options:'
-    'Commands:': 'Jobs:'
-  .epilogue "For more information, look into the man page."
-  # validation
-  .strict()
-  .fail (err) ->
-    err = new Error "CLI #{err}"
-    err.description = 'Specify --help for available options'
-    exit 1, err
-  .argv
-  # implement some global switches
-  chalk.enabled = false if args.nocolors
+# add the jobs
+jobs = path.join path.dirname(__dirname), 'var/lib/script/index'
+if fs.existsSync jobs
+  jobs = require jobs
+  jobs.addTo yargs
+# help
+yargs.help 'help'
+.updateStrings
+  'Options:': 'General Options:'
+  'Commands:': 'Jobs:'
+.epilogue "For more information, look into the man page."
+# validation
+.strict()
+.fail (err) ->
+  err = new Error "CLI #{err}"
+  err.description = 'Specify --help for available options'
+  exit 1, err
+args = yargs.argv
+# implement some global switches
+chalk.enabled = false if args.nocolors
 
-  console.log "Starting main routine..."
-  unless args.update
-    exit 1, new Error "Nothing to do specify --help for available options"
-  # update scripts
-  require('./update')()
+unless args.update
+  exit 1, new Error "Nothing to do specify --help for available options"
+console.log "Updating scripts..."
+# update scripts
+require('./update') (err) ->
+  exit 1, err if err
