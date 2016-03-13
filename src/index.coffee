@@ -9,7 +9,7 @@
 
 # include base modules
 # include alinex modules
-report = require 'alinex-report'
+Report = require 'alinex-report'
 # include classes and helpers
 
 
