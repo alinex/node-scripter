@@ -67,7 +67,27 @@ Scripts
 -------------------------------------------------
 To add functionality you have to write your own scripts like:
 
-    comming soon...
+``` coffee
+# Test Script
+# ========================================================================
+
+exports.description = 'only for testing'
+
+exports.options =
+  xtest:
+    alias: 'x'
+    type: 'string'
+
+exports.handler = (args, cb) ->
+  console.log 'test'
+  console.log args
+  # done ending function
+  cb()
+```
+
+The script needs at least a description text and a handler function which will
+be called with the arguments and a callback. Optionally you may define some CLI
+options specific to these job.
 
 This script has to be stored in
 
@@ -96,6 +116,12 @@ This is used to setup execution with load handling and maybe remote connections.
 Also you need the setup under `/database` like described in
 [Database](http://alinex.github.io/node-database).
 This is used to make the specific database connections.
+
+### Email
+
+You may need the setup under `/email` like described in
+[Mail](http://alinex.github.io/node-mail).
+This is used to send emails without detailed call in the script.
 
 
 License

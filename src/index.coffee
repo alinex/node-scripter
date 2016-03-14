@@ -9,6 +9,7 @@
 
 # include base modules
 debug = require('debug') 'scripter'
+chalk = require 'chalk'
 # include alinex modules
 Report = require 'alinex-report'
 {string} = require 'alinex-util'
@@ -20,6 +21,15 @@ Report = require 'alinex-report'
 exports.init = (cb) ->
   cb()
 
+# Error management
+# -------------------------------------------------
+exit = (code = 0, err) ->
+  # exit without error
+  process.exit code unless err
+  # exit with error
+  console.error chalk.red.bold "FAILED: #{err.message}"
+  console.error err.description if err.description
+  process.exit code
 
 # Get the job
 # -------------------------------------------------
@@ -42,5 +52,6 @@ exports.job = (name, file) ->
 #      .strict()
   handler: (args) ->
     debug "run #{name} handler..."
-    lib.handler args
-    process.exit 0
+    lib.handler args, (err) ->
+      exit 1, err if err
+      exit 0
