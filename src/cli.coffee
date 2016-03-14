@@ -9,13 +9,10 @@ yargs = require 'yargs'
 chalk = require 'chalk'
 path = require 'path'
 # include alinex modules
-config = require 'alinex-config'
-Exec = require 'alinex-exec'
 {string} = require 'alinex-util'
 fs = require 'alinex-fs'
 # include classes and helpers
 logo = require('alinex-core').logo 'Script Console'
-schema = require './configSchema'
 
 process.title = 'Scripter'
 
@@ -38,28 +35,6 @@ process.on 'SIGABRT', -> exit 134, new Error "Got SIGABRT signal"
 process.on 'exit', ->
   console.log "Goodbye\n"
 
-# Jobs
-# -------------------------------------------------
-ccc =
-  builder: (yargs) ->
-    job = 'test'
-    console.log 'compile'
-    yargs
-    .demand 1
-    .usage "\nUsage: $0 <job> [options]"
-    .option 'xtest',
-      alias: 'x'
-      type: 'string'
-    .group 'x', "#{string.ucFirst job} Job Options:"
-    # help
-    .help 'h'
-    .alias 'h', 'help'
-    .epilogue "For more information, look into the man page."
-    .strict()
-  handler: (args) ->
-    console.log 'test'
-    console.log args
-    exit 0
 
 # Main routine
 # -------------------------------------------------
@@ -99,7 +74,7 @@ yargs
     type: 'boolean'
 .group ['u'], 'Core Options:'
 # add the jobs
-jobs = path.join path.dirname(__dirname), 'var/lib/script/index'
+jobs = path.join path.dirname(__dirname), 'var/lib/script/index.js'
 if fs.existsSync jobs
   jobs = require jobs
   jobs.addTo yargs
