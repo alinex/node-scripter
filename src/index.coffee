@@ -13,13 +13,18 @@ chalk = require 'chalk'
 # include alinex modules
 Report = require 'alinex-report'
 {string} = require 'alinex-util'
+async = require 'alinex-async'
+Exec = require 'alinex-exec'
+database = require 'alinex-database'
 # include classes and helpers
 
 
 # Helper
 # -------------------------------------------------
-exports.init = (cb) ->
-  cb()
+exports.setup = (cb) ->
+  async.each [Exec, database], (mod, cb) ->
+    mod.setup cb
+  , cb
 
 # Error management
 # -------------------------------------------------
@@ -52,6 +57,6 @@ exports.job = (name, file) ->
 #      .strict()
   handler: (args) ->
     debug "run #{name} handler..."
-    lib.handler args, (err) ->
+    lib.handler args, require('debug')("scripter:#{name}"), (err) ->
       exit 1, err if err
       exit 0

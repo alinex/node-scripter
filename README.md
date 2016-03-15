@@ -78,8 +78,8 @@ exports.options =
     alias: 'x'
     type: 'string'
 
-exports.handler = (args, cb) ->
-  console.log 'test'
+exports.handler = (args, debug, cb) ->
+  debug "running now..."
   console.log args
   # done ending function
   cb()
