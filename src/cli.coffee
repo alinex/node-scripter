@@ -67,7 +67,7 @@ scripter.setup (err) ->
       global: true
     mail:
       alias: 'm'
-      describe: 'send report using email'
+      describe: 'send report using email (give template name)'
       global: true
       type: 'string'
     update:

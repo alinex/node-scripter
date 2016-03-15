@@ -95,6 +95,9 @@ finish = (job, args) ->
     debug "sending email..."
     mail.send
       base: args.mail
-    , job, (err) ->
+    ,
+      title: string.ucFirst job.name
+      description: job.description      
+    , (err) ->
       exit 1, err if err
       exit 0
