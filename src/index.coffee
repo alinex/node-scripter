@@ -10,11 +10,13 @@
 # include base modules
 debug = require('debug') 'scripter'
 chalk = require 'chalk'
+path = require 'path'
 # include alinex modules
 Report = require 'alinex-report'
 {string} = require 'alinex-util'
 async = require 'alinex-async'
 Exec = require 'alinex-exec'
+config = require 'alinex-config'
 database = require 'alinex-database'
 # include classes and helpers
 
@@ -24,7 +26,15 @@ database = require 'alinex-database'
 exports.setup = (cb) ->
   async.each [Exec, database], (mod, cb) ->
     mod.setup cb
-  , cb
+  , (err) ->
+    return cb err if err
+# no own schema
+#    # add schema for module's configuration
+#      config.setSchema '/scripter', schema
+    # set module search path
+    config.register 'scripter', path.dirname __dirname
+    cb()
+
 
 # Error management
 # -------------------------------------------------
@@ -39,14 +49,16 @@ exit = (code = 0, err) ->
 # Get the job
 # -------------------------------------------------
 exports.job = (name, file) ->
-  lib = require file
+  try
+    lib = require file
+  catch error
+    exit 1, error if error
   # setup module
   lib.report = new Report()
   lib.debug = require('debug') "scripter:#{name}"
   # return builder and handler
   builder: (yargs) ->
     yargs
-    .demand 1
     .usage "\nUsage: $0 #{name} [options]"
     # add options
     yargs.option key, def for key, def of lib.options
@@ -55,9 +67,15 @@ exports.job = (name, file) ->
     yargs.help 'h'
     .alias 'h', 'help'
     .epilogue "For more information, look into the man page."
-#      .strict()
+#    .strict()
   handler: (args) ->
     debug "run #{name} handler..."
-    lib.handler args, (err) ->
-      exit 1, err if err
-      exit 0
+    try
+      lib.handler args, (err) ->
+        exit 1, err if err
+        debug "finished #{name} handler"
+        exit 0
+    catch error
+      error.description = error.stack.split(/\n/)[1..].join '\n'
+      exit 1, error
+    return true

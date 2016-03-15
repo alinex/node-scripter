@@ -97,9 +97,11 @@ scripter.setup (err) ->
   # implement some global switches
   chalk.enabled = false if args.nocolors
 
-  unless args.update
-    exit 1, new Error "Nothing to do specify --help for available options"
-  console.log "Updating scripts..."
-  # update scripts
-  require('./update') (err) ->
-    exit 1, err if err
+  unless args._.length
+    # generall command
+    unless args.update
+      exit 1, new Error "Nothing to do specify --help for available options"
+    console.log "Updating scripts..."
+    # update scripts
+    require('./update') (err) ->
+      exit 1, err if err
