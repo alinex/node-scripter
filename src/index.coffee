@@ -42,6 +42,7 @@ exports.job = (name, file) ->
   lib = require file
   # setup module
   lib.report = new Report()
+  lib.debug = require('debug') "scripter:#{name}"
   # return builder and handler
   builder: (yargs) ->
     yargs
@@ -57,6 +58,6 @@ exports.job = (name, file) ->
 #      .strict()
   handler: (args) ->
     debug "run #{name} handler..."
-    lib.handler args, require('debug')("scripter:#{name}"), (err) ->
+    lib.handler args, (err) ->
       exit 1, err if err
       exit 0

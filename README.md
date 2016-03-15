@@ -78,7 +78,10 @@ exports.options =
     alias: 'x'
     type: 'string'
 
-exports.handler = (args, debug, cb) ->
+exports.handler = (args, cb) ->
+  # shortcuts to predefined objects
+  debug = exports.debug
+  # do the job
   debug "running now..."
   console.log args
   # done ending function
@@ -88,6 +91,11 @@ exports.handler = (args, debug, cb) ->
 The script needs at least a description text and a handler function which will
 be called with the arguments and a callback. Optionally you may define some CLI
 options specific to these job.
+
+The following objects will be preset in the exports object:
+
+- debug - instance to output debugging messages
+- report - specific report object to add to
 
 This script has to be stored in
 
