@@ -18,13 +18,14 @@ async = require 'alinex-async'
 Exec = require 'alinex-exec'
 config = require 'alinex-config'
 database = require 'alinex-database'
+mail = require 'alinex-mail'
 # include classes and helpers
 
 
 # Helper
 # -------------------------------------------------
 exports.setup = (cb) ->
-  async.each [Exec, database], (mod, cb) ->
+  async.each [Exec, database, mail], (mod, cb) ->
     mod.setup cb
   , (err) ->
     return cb err if err
@@ -54,6 +55,7 @@ exports.job = (name, file) ->
   catch error
     exit 1, error if error
   # setup module
+  lib.name = name
   lib.report = new Report()
   lib.debug = require('debug') "scripter:#{name}"
   # return builder and handler
@@ -69,13 +71,30 @@ exports.job = (name, file) ->
     .epilogue "For more information, look into the man page."
 #    .strict()
   handler: (args) ->
+    # init report
+    lib.start = new Date()
+    # run job
     debug "run #{name} handler..."
     try
       lib.handler args, (err) ->
         exit 1, err if err
         debug "finished #{name} handler"
-        exit 0
+        lib.end = new Date()
+        finish lib, args
     catch error
       error.description = error.stack.split(/\n/)[1..].join '\n'
       exit 1, error
     return true
+
+finish = (job, args) ->
+  console.log 'Done.'
+  console.log()
+  console.log job.report.toConsole()
+  console.log()
+  if args.mail
+    debug "sending email..."
+    mail.send
+      base: args.mail
+    , job, (err) ->
+      exit 1, err if err
+      exit 0

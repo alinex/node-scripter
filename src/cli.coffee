@@ -9,7 +9,6 @@ yargs = require 'yargs'
 chalk = require 'chalk'
 path = require 'path'
 # include alinex modules
-{string} = require 'alinex-util'
 fs = require 'alinex-fs'
 logo = require('alinex-core').logo 'Script Console'
 # include classes and helpers
@@ -68,7 +67,7 @@ scripter.setup (err) ->
       global: true
     mail:
       alias: 'm'
-      describe: 'try run which wont change the emails'
+      describe: 'send report using email'
       global: true
       type: 'string'
     update:
