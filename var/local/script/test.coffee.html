@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>test.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "home/alex/github/node-scripter/var/local/script/test.coffee";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#test-script">Test Script</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#node-modules">Node Modules</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#meta-data">Meta Data</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#handler">Handler</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-scripter" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="test-script">
+  <h1>
+    <a href="#test-script" name="test-script" class="pilcrow"></a>
+Test Script
+  </h1>
+</div>
+
+        </td>
+        <td class="code highlight">
+          
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="node-modules">
+  <h2>
+    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
+Node Modules
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>include base modules
+include alinex-modules</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span>
+Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-exec'</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="meta-data">
+  <h2>
+    <a href="#meta-data" name="meta-data" class="pilcrow"></a>
+Meta Data
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">
+exports.description = <span class="hljs-string">'General testing of server'</span>
+
+exports.options =
+  <span class="hljs-attribute">server</span>:
+    <span class="hljs-attribute">alias</span>: <span class="hljs-string">'s'</span>
+    <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+    <span class="hljs-attribute">describe</span>: <span class="hljs-string">'server to check'</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="handler">
+  <h2>
+    <a href="#handler" name="handler" class="pilcrow"></a>
+Handler
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">
+exports.handler = <span class="hljs-function"><span class="hljs-params">(args, cb)</span> -&gt;</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<p>shortcuts to predefined objects</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  debug = exports.debug
+  report = exports.report</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<p>get server data</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  debug <span class="hljs-string">"get data from remote server..."</span>
+  async.mapOf
+    <span class="hljs-attribute">df</span>:
+      <span class="hljs-attribute">remote</span>: args.server
+      <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'df'</span>
+      <span class="hljs-attribute">args</span>: [
+        <span class="hljs-string">'-t'</span>, <span class="hljs-string">'ext4'</span>
+        <span class="hljs-string">'-t'</span>, <span class="hljs-string">'vfat'</span>
+      ]
+      <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
+    <span class="hljs-attribute">conntrack</span>:
+      <span class="hljs-attribute">remote</span>: server
+      <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'grep'</span>
+      <span class="hljs-attribute">args</span>: [ <span class="hljs-string">'conntrack'</span>, <span class="hljs-string">'/var/log/syslog'</span> ]
+      <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
+  , <span class="hljs-function"><span class="hljs-params">(setup, name, cb)</span> -&gt;</span>
+    Exec.run setup, <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span> cb <span class="hljs-literal">null</span>, proc
+  , <span class="hljs-function"><span class="hljs-params">(err, data)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<p>make report</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    checkDf data.df, report</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<p>done processing</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    cb()
+<span class="hljs-function">
+<span class="hljs-title">checkDf</span> = <span class="hljs-params">(proc, report)</span> -&gt;</span>
+  report.h2 <span class="hljs-string">"Disk Usage"</span>
+  <span class="hljs-keyword">if</span> proc.result.error
+    report.alert proc.result.error
+  <span class="hljs-keyword">if</span> proc.stdout()
+    report.code proc.stdout()</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

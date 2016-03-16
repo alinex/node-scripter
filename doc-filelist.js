@@ -1,0 +1,1 @@
+var tree={"files":["Changelog.md","README.md","coffeelint.json","package.json"],"dirs":{"src":{"files":["cli.coffee","index.coffee","update.coffee"],"dirs":{"man":{"files":["scripter.1.md"]}}},"var":{"dirs":{"lib":{"dirs":{"script":{"files":["index.js","test.js"]}}},"local":{"dirs":{"script":{"files":["test.coffee"]}}}}}}};

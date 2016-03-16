@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="doc-style.css" />
+  <script src="doc-filelist.js"></script>
+  <script>
+    var relativeDir = "";
+    var thisFile = "home/alex/github/node-scripter/README.md";
+    var defaultSidebar = true;
+  </script>
+  <script src="doc-script.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#package-alinex-scripter">Package: alinex-scripter</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#scripts">Scripts</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#configuration">Configuration</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#exec">Exec</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#database">Database</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#email">Email</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-scripter" title="Fork me on GitHub"></a>
+    <div class="docs markdown"><div class="pilwrap" id="package-alinex-scripter">
+  <h1>
+    <a href="#package-alinex-scripter" name="package-alinex-scripter" class="pilcrow"></a>
+Package: alinex-scripter
+  </h1>
+</div>
+<p><a href="https://travis-ci.org/alinex/node-scripter"><img src="https://travis-ci.org/alinex/node-scripter.svg?branch=master" alt="Build Status"></a>
+<a href="https://coveralls.io/r/alinex/node-scripter?branch=master"><img src="https://coveralls.io/repos/alinex/node-scripter/badge.png?branch=master" alt="Coverage Status"></a>
+<a href="https://gemnasium.com/alinex/node-scripter"><img src="https://gemnasium.com/alinex/node-scripter.png" alt="Dependency Status"></a></p>
+<p>The scripter makes the best nodejs easy usable from scripts with the full configuration
+support but without the nasty initialization.</p>
+<p>So you mainly concentrate on your functional work and get</p>
+<ul>
+<li>remote execution support</li>
+<li>easy database access</li>
+<li>easy web service requests</li>
+<li>reporting</li>
+<li>mail response</li>
+</ul>
+<p>It can be started from command line or triggered using cron.</p>
+<blockquote>
+<p>It is one of the modules of the <a href="http://alinex.github.io/code.html">Alinex Universe</a>
+following the code standards defined in the <a href="http://alinex.github.io/develop">General Docs</a>.</p>
+</blockquote>
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
+  </h2>
+</div>
+<p><a href="https://www.npmjs.com/package/alinex-scripter"><img src="https://nodei.co/npm/alinex-scripter.png?downloads=true&amp;downloadRank=true&amp;stars=true" alt="NPM">
+<img src="https://nodei.co/npm-dl/alinex-scripter.png?months=9&amp;height=3" alt="Downloads">
+</a></p>
+<p>Install the package globally using npm on a central server.</p>
+<pre><code class="sh">sudo npm install -g alinex-scripter --production
+</code></pre>
+<p>After global installation you may directly call <code>scripter</code> from anywhere.</p>
+<pre><code class="sh">scripter --help
+</code></pre>
+<p>Always have a look at the latest <a href="Changelog.md.html.html">changes</a>.</p>
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
+  </h2>
+</div>
+<p>You can simple call the <code>scripter</code> command with one of the configured jobs:</p>
+<pre><code>&gt; scripter &lt;job&gt; [&lt;options&gt;]...
+
+Initializing...
+Run the job...
+...
+Goodbye
+</code></pre>
+<p>To list all the possible jobs:</p>
+<pre><code>&gt; scripter --help
+</code></pre>
+<p>This will show the possible jobs which are defined as scripts.</p>
+<div class="pilwrap" id="scripts">
+  <h2>
+    <a href="#scripts" name="scripts" class="pilcrow"></a>
+Scripts
+  </h2>
+</div>
+<p>To add functionality you have to write your own scripts like:</p>
+<pre><code class="coffee"><span class="hljs-comment"># Test Script</span>
+<span class="hljs-comment"># ========================================================================</span>
+
+exports.description = <span class="hljs-string">'only for testing'</span>
+
+exports.options =
+  <span class="hljs-attribute">xtest</span>:
+    <span class="hljs-attribute">alias</span>: <span class="hljs-string">'x'</span>
+    <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+
+exports.handler = <span class="hljs-function"><span class="hljs-params">(args, cb)</span> -&gt;</span>
+  <span class="hljs-comment"># shortcuts to predefined objects</span>
+  debug = exports.debug
+  <span class="hljs-comment"># do the job</span>
+  debug <span class="hljs-string">"running now..."</span>
+  <span class="hljs-built_in">console</span>.log args
+  <span class="hljs-comment"># done ending function</span>
+  cb()
+</code></pre>
+<p>The script needs at least a description text and a handler function which will
+be called with the arguments and a callback. Optionally you may define some CLI
+options specific to these job.</p>
+<p>The following objects will be preset in the exports object:</p>
+<ul>
+<li>debug - instance to output debugging messages</li>
+<li>report - specific report object to add to</li>
+</ul>
+<p>This script has to be stored in</p>
+<ul>
+<li>subfolder <code>var/script</code></li>
+<li><code>/etc/scripter/script</code></li>
+<li><code>~/.scripter/script</code></li>
+</ul>
+<p>as JavaScript or CoffeeScript.</p>
+<p>To include them you have to call the scripter once with it's <code>--update</code> option:</p>
+<pre><code>&gt; scripter --update
+</code></pre>
+<div class="pilwrap" id="configuration">
+  <h2>
+    <a href="#configuration" name="configuration" class="pilcrow"></a>
+Configuration
+  </h2>
+</div>
+<div class="pilwrap" id="exec">
+  <h3>
+    <a href="#exec" name="exec" class="pilcrow"></a>
+Exec
+  </h3>
+</div>
+<p>You may need the setup under <code>/exec</code> like described in
+<a href="http://alinex.github.io/node-exec">Exec</a>.
+This is used to setup execution with load handling and maybe remote connections.</p>
+<div class="pilwrap" id="database">
+  <h3>
+    <a href="#database" name="database" class="pilcrow"></a>
+Database
+  </h3>
+</div>
+<p>Also you need the setup under <code>/database</code> like described in
+<a href="http://alinex.github.io/node-database">Database</a>.
+This is used to make the specific database connections.</p>
+<div class="pilwrap" id="email">
+  <h3>
+    <a href="#email" name="email" class="pilcrow"></a>
+Email
+  </h3>
+</div>
+<p>You may need the setup under <code>/email</code> like described in
+<a href="http://alinex.github.io/node-mail">Mail</a>.
+This is used to send emails without detailed call in the script.</p>
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow"></a>
+License
+  </h2>
+</div>
+<p>Copyright 2016 Alexander Schilling</p>
+<p>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at</p>
+<blockquote>
+<p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+</blockquote>
+<p>Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.</p>
+</div>
+  </div>
+</body>
+</html>

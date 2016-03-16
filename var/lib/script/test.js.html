@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>test.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "home/alex/github/node-scripter/var/lib/script/test.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-scripter" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>test.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-comment">/** This file has been compiled from /home/alex/github/node-scripter/var/local/script/test.coffee */</span>
+
+(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> Exec, <span class="hljs-keyword">async</span>, checkDf;
+
+  <span class="hljs-keyword">async</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">'alinex-async'</span>);
+
+  Exec = <span class="hljs-built_in">require</span>(<span class="hljs-string">'alinex-exec'</span>);
+
+  exports.description = <span class="hljs-string">'General testing of server'</span>;
+
+  exports.options = {
+    xtest: {
+      alias: <span class="hljs-string">'x'</span>,
+      type: <span class="hljs-string">'string'</span>,
+      describe: <span class="hljs-string">'only to demonstrate parameters'</span>
+    }
+  };
+
+  exports.handler = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">args, cb</span>) </span>{
+    <span class="hljs-keyword">var</span> debug, report, server;
+    debug = exports.debug;
+    report = exports.report;
+    debug(<span class="hljs-string">"get data from remote server..."</span>);
+    server = <span class="hljs-string">'dvb-develop'</span>;
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">async</span>.mapOf({
+      df: {
+        remote: server,
+        cmd: <span class="hljs-string">'df'</span>,
+        args: [<span class="hljs-string">'-t'</span>, <span class="hljs-string">'ext4'</span>, <span class="hljs-string">'-t'</span>, <span class="hljs-string">'vfat'</span>],
+        priority: <span class="hljs-string">'immediately'</span>
+      },
+      conntrack: {
+        remote: server,
+        cmd: <span class="hljs-string">'grep'</span>,
+        args: [<span class="hljs-string">'conntrack'</span>, <span class="hljs-string">'/var/log/syslog'</span>],
+        priority: <span class="hljs-string">'immediately'</span>
+      }
+    }, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">setup, name, cb</span>) </span>{
+      <span class="hljs-keyword">return</span> Exec.run(setup, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, proc</span>) </span>{
+        <span class="hljs-keyword">return</span> cb(<span class="hljs-literal">null</span>, proc);
+      });
+    }, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, data</span>) </span>{
+      <span class="hljs-keyword">if</span> (err) {
+        <span class="hljs-keyword">return</span> cb(err);
+      }
+      checkDf(data.df, report);
+      <span class="hljs-keyword">return</span> cb();
+    });
+  };
+
+  checkDf = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">proc, report</span>) </span>{
+    report.h2(<span class="hljs-string">"Disk Usage"</span>);
+    <span class="hljs-keyword">if</span> (proc.result.error) {
+      report.alert(proc.result.error);
+    }
+    <span class="hljs-keyword">if</span> (proc.stdout()) {
+      <span class="hljs-keyword">return</span> report.code(proc.stdout());
+    }
+  };
+
+}).call(<span class="hljs-keyword">this</span>);</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

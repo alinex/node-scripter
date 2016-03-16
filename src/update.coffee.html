@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>update.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../";
+    var thisFile = "home/alex/github/node-scripter/src/update.coffee";
+    var defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#update-scripts">Update scripts</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#node-modules">Node Modules</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#execution">Execution</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-scripter" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="update-scripts">
+  <h1>
+    <a href="#update-scripts" name="update-scripts" class="pilcrow"></a>
+Update scripts
+  </h1>
+</div>
+<p>This will search for scripts and copy or compiles them.</p>
+
+        </td>
+        <td class="code highlight">
+          
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="node-modules">
+  <h2>
+    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
+Node Modules
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>include base modules</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>) <span class="hljs-string">'scripter:update'</span>
+path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
+coffee = <span class="hljs-built_in">require</span> <span class="hljs-string">'coffee-script'</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>include alinex modules</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
+async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>include classes and helpers</p>
+
+        </td>
+        <td class="code highlight">
+          
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="execution">
+  <h2>
+    <a href="#execution" name="execution" class="pilcrow"></a>
+Execution
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+  target = path.join path.dirname(__dirname), <span class="hljs-string">'var/lib/script'</span>
+  search = [
+    path.join path.dirname(__dirname), <span class="hljs-string">'var/src/script'</span>
+    path.join path.dirname(__dirname), <span class="hljs-string">'var/local/script'</span>
+    <span class="hljs-string">'/etc/scripter/script/'</span>
+    (process.env.HOME ? process.env.USERPROFILE) + <span class="hljs-string">'.scripter/script'</span>
+  ]</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<p>delete old files</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  debug <span class="hljs-string">"remove old <span class="hljs-subst">#{target}</span> directory"</span>
+  fs.remove target, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+    fs.mkdirs target, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<p>search</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      debug <span class="hljs-string">"search for scripts..."</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<p>filter to only existing directories</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      async.filter search, fs.exists, <span class="hljs-function"><span class="hljs-params">(search)</span> -&gt;</span>
+        async.map search, <span class="hljs-function"><span class="hljs-params">(dir, cb)</span> -&gt;</span>
+          debug <span class="hljs-string">"-&gt; <span class="hljs-subst">#{dir}</span>"</span>
+          fs.find dir,
+            <span class="hljs-attribute">type</span>: <span class="hljs-string">'f'</span>
+          , cb
+        , <span class="hljs-function"><span class="hljs-params">(err, results)</span> -&gt;</span>
+          <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+          update results, target, cb
+<span class="hljs-function">
+<span class="hljs-title">update</span> = <span class="hljs-params">(files, target, cb)</span> -&gt;</span>
+  debug <span class="hljs-string">"copy and compile scripts..."</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<p>consolidate jobs into map</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  jobs = {}
+  <span class="hljs-keyword">for</span> dir <span class="hljs-keyword">in</span> files
+    <span class="hljs-keyword">for</span> file <span class="hljs-keyword">in</span> dir
+      name = path.basename file, path.extname file
+      jobs[name] =
+        <span class="hljs-attribute">name</span>: name
+        <span class="hljs-attribute">type</span>: path.extname(file)[<span class="hljs-number">1.</span>.]
+        <span class="hljs-attribute">source</span>: file</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<p>copy or compile</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  async.each Object.keys(jobs), <span class="hljs-function"><span class="hljs-params">(name, cb)</span> -&gt;</span>
+    job = jobs[name]
+    job.to = path.join target, <span class="hljs-string">"<span class="hljs-subst">#{name}</span>.js"</span>
+    <span class="hljs-keyword">switch</span> job.type
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'coffee'</span>
+        debug <span class="hljs-string">"-&gt; <span class="hljs-subst">#{job.to}</span> (compile)"</span>
+        fs.readFile job.source, <span class="hljs-string">'utf8'</span>, <span class="hljs-function"><span class="hljs-params">(err, data)</span> -&gt;</span>
+          <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+          compiled = coffee.compile data,
+            <span class="hljs-attribute">filename</span>: path.basename file
+            <span class="hljs-attribute">generatedFile</span>: path.basename job.to
+          fs.writeFile job.to, <span class="hljs-string">"""
+          /** This file has been compiled from <span class="hljs-subst">#{job.source}</span> */
+
+</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
+</div>
+<p>{compiled}</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">          <span class="hljs-string">""", cb
+      when 'js'
+        debug "-&gt; <span class="hljs-subst">#{job.to}</span> (copy)"
+        fs.copy job.source, job.to, cb
+      else
+        return cb new Error "Unsupported file type of <span class="hljs-subst">#{job.source}</span>"
+  , (err) -&gt;
+    return cb err if err
+    debug "generate index..."
+</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
+</div>
+<p>extract description</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    job.description = <span class="hljs-built_in">require</span>(job.to).description <span class="hljs-keyword">for</span> name, job <span class="hljs-keyword">of</span> jobs</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
+</div>
+<p>create index</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    index = <span class="hljs-string">"""
+      /** This file is used to include the job commands into yargs. */
+
+      (function() {
+        var scripter = require('../../../lib/index');
+        exports.addTo = function(yargs) {
+          return yargs"""</span>
+    <span class="hljs-keyword">for</span> name, job <span class="hljs-keyword">of</span> jobs
+      index += <span class="hljs-string">".command('<span class="hljs-subst">#{name}</span>', '<span class="hljs-subst">#{job.description}</span>', scripter.job('<span class="hljs-subst">#{name}</span>', '<span class="hljs-subst">#{job.to}</span>'))"</span>
+    index += <span class="hljs-string">""";
+        };
+      }).call(this);
+      """</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
+</div>
+<p>write index</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    fs.writeFile path.join(target, <span class="hljs-string">'index.js'</span>), index, cb</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>
