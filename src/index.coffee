@@ -97,7 +97,9 @@ finish = (job, args) ->
       base: args.mail
     ,
       title: string.ucFirst job.name
-      description: job.description      
+      description: job.description
     , (err) ->
       exit 1, err if err
       exit 0
+  else
+    exit 0
