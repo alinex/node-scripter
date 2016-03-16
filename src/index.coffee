@@ -98,6 +98,9 @@ finish = (job, args) ->
     ,
       title: string.ucFirst job.name
       description: job.description
+      start: job.start
+      end: job.end
+      report: job.report.toString()
     , (err) ->
       exit 1, err if err
       exit 0
