@@ -66,6 +66,7 @@ exports.job = (name, file) ->
     yargs.option key, def for key, def of lib.options
     yargs.group Object.keys(lib.options), "#{string.ucFirst name} Job Options:"
     # help
+    yargs.strict()
     yargs.help 'h'
     .alias 'h', 'help'
     .epilogue "For more information, look into the man page."
