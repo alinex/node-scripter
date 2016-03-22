@@ -46,11 +46,11 @@ scripter.setup (err) ->
   # Start argument parsing
   yargs
   .usage "\nUsage: $0 <job> [options]"
+  .env 'SCRIPTER' # use environment arguments prefixed with SCRIPTER_
   # examples
   .example '$0 --update', 'to initialize and update the scripts'
   .example '$0 <job>', 'to simply run the job script'
   # general options
-  .env 'SCRIPTER'
   .options
     help:
       alias: 'h',
@@ -92,6 +92,7 @@ scripter.setup (err) ->
     err = new Error "CLI #{err}"
     err.description = 'Specify --help for available options'
     exit 1, err
+  # now parse the arguments
   args = yargs.argv
   # implement some global switches
   chalk.enabled = false if args.nocolors
