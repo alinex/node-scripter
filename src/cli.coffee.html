@@ -219,7 +219,8 @@ scripter.setup (err) -&gt;
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  yargs
-  .usage <span class="hljs-string">"\nUsage: $0 &lt;job&gt; [options]"</span></pre>
+  .usage <span class="hljs-string">"\nUsage: $0 &lt;job&gt; [options]"</span>
+  .env <span class="hljs-string">'SCRIPTER'</span> <span class="hljs-comment"># use environment arguments prefixed with SCRIPTER_</span></pre>
         </td>
       </tr>
     
@@ -246,8 +247,7 @@ scripter.setup (err) -&gt;
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  .env <span class="hljs-string">'SCRIPTER'</span>
-  .options
+          <pre class="coffeescript">  .options
     <span class="hljs-attribute">help</span>:
       <span class="hljs-attribute">alias</span>: <span class="hljs-string">'h'</span>,
       <span class="hljs-attribute">description</span>: <span class="hljs-string">'display help message'</span>
@@ -303,7 +303,12 @@ scripter.setup (err) -&gt;
   .updateStrings
     <span class="hljs-string">'Options:'</span>: <span class="hljs-string">'General Options:'</span>
     <span class="hljs-string">'Commands:'</span>: <span class="hljs-string">'Jobs:'</span>
-  .epilogue <span class="hljs-string">"For more information, look into the man page."</span></pre>
+  .epilogue <span class="hljs-string">"""
+    You may use environment variables prefixed with 'SCRIPTER_' to set any of
+    the options like 'SCRIPTER_MAIL' to set the email address.
+
+    For more information, look into the man page.
+    """</span></pre>
         </td>
       </tr>
     
@@ -320,8 +325,7 @@ scripter.setup (err) -&gt;
   .fail (err) -&gt;
     err = <span class="hljs-keyword">new</span> Error <span class="hljs-string">"CLI <span class="hljs-subst">#{err}</span>"</span>
     err.description = <span class="hljs-string">'Specify --help for available options'</span>
-    exit <span class="hljs-number">1</span>, err
-  args = yargs.argv</pre>
+    exit <span class="hljs-number">1</span>, err</pre>
         </td>
       </tr>
     
@@ -329,6 +333,19 @@ scripter.setup (err) -&gt;
         <td class="docs">
           <div class="pilwrap">
   <a class="pilcrow" href="#section-16" id="section-16"></a>
+</div>
+<p>now parse the arguments</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  args = yargs.argv</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17"></a>
 </div>
 <p>implement some global switches</p>
 
@@ -343,7 +360,7 @@ scripter.setup (err) -&gt;
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-17" id="section-17"></a>
+  <a class="pilcrow" href="#section-18" id="section-18"></a>
 </div>
 <p>generall command</p>
 
@@ -358,7 +375,7 @@ scripter.setup (err) -&gt;
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-18" id="section-18"></a>
+  <a class="pilcrow" href="#section-19" id="section-19"></a>
 </div>
 <p>update scripts</p>
 

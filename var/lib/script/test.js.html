@@ -67,37 +67,39 @@
           <pre class="javascript"><span class="hljs-comment">/** This file has been compiled from /home/alex/github/node-scripter/var/local/script/test.coffee */</span>
 
 (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">var</span> Exec, <span class="hljs-keyword">async</span>, checkDf;
+  <span class="hljs-keyword">var</span> Exec, <span class="hljs-keyword">async</span>, checkDf, string;
 
   <span class="hljs-keyword">async</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">'alinex-async'</span>);
 
   Exec = <span class="hljs-built_in">require</span>(<span class="hljs-string">'alinex-exec'</span>);
 
+  string = <span class="hljs-built_in">require</span>(<span class="hljs-string">'alinex-util'</span>).string;
+
   exports.description = <span class="hljs-string">'General testing of server'</span>;
 
   exports.options = {
-    xtest: {
-      alias: <span class="hljs-string">'x'</span>,
+    server: {
+      alias: <span class="hljs-string">'s'</span>,
       type: <span class="hljs-string">'string'</span>,
-      describe: <span class="hljs-string">'only to demonstrate parameters'</span>
+      describe: <span class="hljs-string">'server to check'</span>
     }
   };
 
   exports.handler = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">args, cb</span>) </span>{
-    <span class="hljs-keyword">var</span> debug, report, server;
+    <span class="hljs-keyword">var</span> debug, report;
     debug = exports.debug;
     report = exports.report;
     debug(<span class="hljs-string">"get data from remote server..."</span>);
-    server = <span class="hljs-string">'dvb-develop'</span>;
+    <span class="hljs-built_in">console</span>.log(args.server);
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">async</span>.mapOf({
       df: {
-        remote: server,
+        remote: args.server,
         cmd: <span class="hljs-string">'df'</span>,
         args: [<span class="hljs-string">'-t'</span>, <span class="hljs-string">'ext4'</span>, <span class="hljs-string">'-t'</span>, <span class="hljs-string">'vfat'</span>],
         priority: <span class="hljs-string">'immediately'</span>
       },
       conntrack: {
-        remote: server,
+        remote: args.server,
         cmd: <span class="hljs-string">'grep'</span>,
         args: [<span class="hljs-string">'conntrack'</span>, <span class="hljs-string">'/var/log/syslog'</span>],
         priority: <span class="hljs-string">'immediately'</span>
@@ -116,12 +118,14 @@
   };
 
   checkDf = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">proc, report</span>) </span>{
+    <span class="hljs-keyword">var</span> data;
     report.h2(<span class="hljs-string">"Disk Usage"</span>);
     <span class="hljs-keyword">if</span> (proc.result.error) {
       report.alert(proc.result.error);
     }
     <span class="hljs-keyword">if</span> (proc.stdout()) {
-      <span class="hljs-keyword">return</span> report.code(proc.stdout());
+      data = string.toList(proc.stdout(), <span class="hljs-regexp">/\n/</span>, <span class="hljs-regexp">/\s+/</span>);
+      <span class="hljs-keyword">return</span> report.table(data.slice(<span class="hljs-number">1</span>), data[<span class="hljs-number">0</span>]);
     }
   };
 

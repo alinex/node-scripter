@@ -106,7 +106,8 @@ include alinex-modules</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span>
-Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-exec'</span></pre>
+Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-exec'</span>
+{string} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span></pre>
         </td>
       </tr>
     
@@ -172,6 +173,7 @@ exports.handler = <span class="hljs-function"><span class="hljs-params">(args, c
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  debug <span class="hljs-string">"get data from remote server..."</span>
+  <span class="hljs-built_in">console</span>.log args.server
   async.mapOf
     <span class="hljs-attribute">df</span>:
       <span class="hljs-attribute">remote</span>: args.server
@@ -182,7 +184,7 @@ exports.handler = <span class="hljs-function"><span class="hljs-params">(args, c
       ]
       <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
     <span class="hljs-attribute">conntrack</span>:
-      <span class="hljs-attribute">remote</span>: server
+      <span class="hljs-attribute">remote</span>: args.server
       <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'grep'</span>
       <span class="hljs-attribute">args</span>: [ <span class="hljs-string">'conntrack'</span>, <span class="hljs-string">'/var/log/syslog'</span> ]
       <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
@@ -222,7 +224,8 @@ exports.handler = <span class="hljs-function"><span class="hljs-params">(args, c
   <span class="hljs-keyword">if</span> proc.result.error
     report.alert proc.result.error
   <span class="hljs-keyword">if</span> proc.stdout()
-    report.code proc.stdout()</pre>
+    data = string.toList proc.stdout(), <span class="hljs-regexp">/\n/</span>, <span class="hljs-regexp">/\s+/</span>
+    report.table data[<span class="hljs-number">1.</span>.], data[<span class="hljs-number">0</span>]</pre>
         </td>
       </tr>
     
