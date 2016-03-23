@@ -4,6 +4,14 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.0 (2016-03-23)
+-------------------------------------------------
+- Upgraded util package.
+- Add environment settings in help output.
+- Document code.
+- Fixed yargs strict and table presentation.
+- Upgrade mail, config, util and yargs.
+
 Version 0.1.0 (2016-03-16)
 -------------------------------------------------
 - Fixed test.
