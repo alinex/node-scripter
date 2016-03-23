@@ -24,7 +24,7 @@
   "license": "Apache-2.0",
   "main": "./lib/index.js",
   "bin": {
-    "mailman": "./bin/scripter"
+    "scripter": "./bin/scripter"
   },
   "man": "./man/scripter.1",
   "scripts": {
