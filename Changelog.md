@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.1 (2016-03-23)
+-------------------------------------------------
+- Fixed bin name.
+
 Version 1.0.0 (2016-03-23)
 -------------------------------------------------
 - Upgraded util package.
