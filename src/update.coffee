@@ -8,6 +8,7 @@
 
 # include base modules
 debug = require('debug') 'scripter:update'
+chalk = require 'chalk'
 path = require 'path'
 coffee = require 'coffee-script'
 # include alinex modules
@@ -78,7 +79,9 @@ update = (files, target, cb) ->
         debug "-> #{job.to} (copy)"
         fs.copy job.source, job.to, cb
       else
-        return cb new Error "Unsupported file type of #{job.source}"
+        delete jobs[name]
+        debug chalk.magenta "Unsupported file type of #{job.source} ignored"
+        cb()
   , (err) ->
     return cb err if err
     debug "generate index..."
