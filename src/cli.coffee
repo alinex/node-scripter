@@ -17,7 +17,12 @@ scripter = require './index'
 process.title = 'Scripter'
 
 
-quiet = '--get-yargs-completions' in process.argv or 'bashrc' in process.argv
+# Support quiet mode through switch
+# -------------------------------------------------
+quiet = false
+for a in ['--get-yargs-completions', 'bashrc', '-q', '--quiet']
+  quiet = true if a in process.argv
+
 
 # Error management
 # -------------------------------------------------
@@ -67,6 +72,11 @@ scripter.setup (err) ->
       alias: 'v'
       describe: 'run in verbose mode (multiple makes more verbose)'
       count: true
+      global: true
+    quiet:
+      alias: 'q'
+      describe: "don't output header and footer"
+      boolean: true
       global: true
     mail:
       alias: 'm'
