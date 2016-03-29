@@ -17,6 +17,8 @@ scripter = require './index'
 process.title = 'Scripter'
 
 
+quiet = '--get-yargs-completions' in process.argv or 'bashrc' in process.argv
+
 # Error management
 # -------------------------------------------------
 exit = (code = 0, err) ->
@@ -33,13 +35,14 @@ process.on 'SIGHUP', -> exit 129, new Error "Got SIGHUP signal"
 process.on 'SIGQUIT', -> exit 131, new Error "Got SIGQUIT signal"
 process.on 'SIGABRT', -> exit 134, new Error "Got SIGABRT signal"
 process.on 'exit', ->
-  console.log "Goodbye\n"
+  console.log "Goodbye\n" unless quiet
 
 
 # Main routine
 # -------------------------------------------------
-console.log logo
-console.log "Initializing..."
+unless quiet
+  console.log logo
+  console.log "Initializing..."
 
 scripter.setup (err) ->
   exit 1, err if err
