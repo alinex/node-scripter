@@ -91,6 +91,7 @@ scripter.setup (err) ->
 
     For more information, look into the man page.
     """
+  .completion 'bashrc', "generate bashrc completion script"
   # validation
   .strict()
   .fail (err) ->

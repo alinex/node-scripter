@@ -67,10 +67,9 @@ exports.job = (name, file) ->
     yargs.group Object.keys(lib.options), "#{string.ucFirst name} Job Options:"
     # help
     yargs.strict()
-    yargs.help 'h'
+    .help 'h'
     .alias 'h', 'help'
     .epilogue "For more information, look into the man page."
-#    .strict()
   handler: (args) ->
     # init report
     lib.start = new Date()
