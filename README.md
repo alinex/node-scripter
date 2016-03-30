@@ -43,31 +43,13 @@ scripter --help
 
 Always have a look at the latest [changes](Changelog.md).
 
-
-Usage
--------------------------------------------------
-
-You can simple call the `scripter` command with one of the configured jobs:
-
-    > scripter <job> [<options>]...
-
-    Initializing...
-    Run the job...
-    ...
-    Goodbye
-
-To list all the possible jobs:
-
-    > scripter --help
-
-This will show the possible jobs which are defined as scripts.
-
 ### Bash Code completion
 
 If you like, you can add code completion for bash by copying the output of:
 
 ``` text
-> scripter bashrc
+> scripter bashrc-script
+
 ###-begin-cli.coffee-completions-###
 #
 # yargs command completion script
@@ -99,6 +81,25 @@ complete -F _yargs_completions scripter
 ```
 
 Put these lines into your `~/.bashrc` file.
+
+
+Usage
+-------------------------------------------------
+
+You can simple call the `scripter` command with one of the configured jobs:
+
+    > scripter <job> [<options>]...
+
+    Initializing...
+    Run the job...
+    ...
+    Goodbye
+
+To list all the possible jobs:
+
+    > scripter --help
+
+This will show the possible jobs which are defined as scripts.
 
 
 Scripts
