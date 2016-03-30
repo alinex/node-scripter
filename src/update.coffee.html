@@ -102,6 +102,7 @@ Node Modules
         </td>
         <td class="code highlight">
           <pre class="coffeescript">debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>) <span class="hljs-string">'scripter:update'</span>
+chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
 path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
 coffee = <span class="hljs-built_in">require</span> <span class="hljs-string">'coffee-script'</span></pre>
         </td>
@@ -272,7 +273,9 @@ Execution
         debug "-&gt; <span class="hljs-subst">#{job.to}</span> (copy)"
         fs.copy job.source, job.to, cb
       else
-        return cb new Error "Unsupported file type of <span class="hljs-subst">#{job.source}</span>"
+        delete jobs[name]
+        debug chalk.magenta "Unsupported file type of <span class="hljs-subst">#{job.source}</span> ignored"
+        cb()
   , (err) -&gt;
     return cb err if err
     debug "generate index..."

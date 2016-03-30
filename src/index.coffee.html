@@ -307,9 +307,10 @@ Get the job
         </td>
         <td class="code highlight">
           <pre class="coffeescript">    yargs.strict()
-    yargs.help <span class="hljs-string">'h'</span>
+    .help <span class="hljs-string">'h'</span>
     .alias <span class="hljs-string">'h'</span>, <span class="hljs-string">'help'</span>
-    .epilogue <span class="hljs-string">"For more information, look into the man page."</span></pre>
+    .epilogue <span class="hljs-string">"For more information, look into the man page."</span>
+  <span class="hljs-attribute">handler</span>: <span class="hljs-function"><span class="hljs-params">(args)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -317,19 +318,6 @@ Get the job
         <td class="docs">
           <div class="pilwrap">
   <a class="pilcrow" href="#section-16" id="section-16"></a>
-</div>
-<p>.strict()</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">handler</span>: <span class="hljs-function"><span class="hljs-params">(args)</span> -&gt;</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-17" id="section-17"></a>
 </div>
 <p>init report</p>
 
@@ -342,7 +330,7 @@ Get the job
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-18" id="section-18"></a>
+  <a class="pilcrow" href="#section-17" id="section-17"></a>
 </div>
 <p>run job</p>
 
@@ -351,16 +339,15 @@ Get the job
           <pre class="coffeescript">    debug <span class="hljs-string">"run <span class="hljs-subst">#{name}</span> handler..."</span>
     <span class="hljs-keyword">try</span>
       lib.handler args, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
-        exit <span class="hljs-number">1</span>, err <span class="hljs-keyword">if</span> err
         debug <span class="hljs-string">"finished <span class="hljs-subst">#{name}</span> handler"</span>
         lib.end = <span class="hljs-keyword">new</span> Date()
-        finish lib, args
+        finish lib, args, err
     <span class="hljs-keyword">catch</span> error
       error.description = error.stack.split(<span class="hljs-regexp">/\n/</span>)[<span class="hljs-number">1.</span>.].join <span class="hljs-string">'\n'</span>
       exit <span class="hljs-number">1</span>, error
     <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
 <span class="hljs-function">
-<span class="hljs-title">finish</span> = <span class="hljs-params">(job, args)</span> -&gt;</span>
+<span class="hljs-title">finish</span> = <span class="hljs-params">(job, args, err)</span> -&gt;</span>
   <span class="hljs-built_in">console</span>.log <span class="hljs-string">'Done.'</span>
   <span class="hljs-built_in">console</span>.log()
   <span class="hljs-built_in">console</span>.log job.report.toConsole()
@@ -375,10 +362,12 @@ Get the job
       <span class="hljs-attribute">start</span>: job.start
       <span class="hljs-attribute">end</span>: job.end
       <span class="hljs-attribute">report</span>: job.report.toString()
-    , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+    , <span class="hljs-function"><span class="hljs-params">(merr)</span> -&gt;</span>
       exit <span class="hljs-number">1</span>, err <span class="hljs-keyword">if</span> err
+      exit <span class="hljs-number">128</span>, merr <span class="hljs-keyword">if</span> merr
       exit <span class="hljs-number">0</span>
   <span class="hljs-keyword">else</span>
+    exit <span class="hljs-number">1</span>, err <span class="hljs-keyword">if</span> err
     exit <span class="hljs-number">0</span></pre>
         </td>
       </tr>

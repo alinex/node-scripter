@@ -48,12 +48,24 @@
         <a href="#install">Install</a>
       </div>
 
+      <div class="heading h3">
+        <a href="#bash-code-completion">Bash Code completion</a>
+      </div>
+
       <div class="heading h2">
         <a href="#usage">Usage</a>
       </div>
 
       <div class="heading h2">
         <a href="#scripts">Scripts</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#preset-instances">Preset instances</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#available-packages">Available packages</a>
       </div>
 
       <div class="heading h2">
@@ -120,6 +132,45 @@ Install
 <pre><code class="sh">scripter --help
 </code></pre>
 <p>Always have a look at the latest <a href="Changelog.md.html.html">changes</a>.</p>
+<div class="pilwrap" id="bash-code-completion">
+  <h3>
+    <a href="#bash-code-completion" name="bash-code-completion" class="pilcrow"></a>
+Bash Code completion
+  </h3>
+</div>
+<p>If you like, you can add code completion for bash by copying the output of:</p>
+<pre><code class="text">&gt; scripter bashrc-script
+
+###-begin-cli.coffee-completions-###
+#
+# yargs command completion script
+#
+# Installation: scripter completion &gt;&gt; ~/.bashrc
+#    or scripter completion &gt;&gt; ~/.bash_profile on OSX.
+#
+_yargs_completions()
+{
+    local cur_word args type_list
+
+    cur_word=&quot;${COMP_WORDS[COMP_CWORD]}&quot;
+    args=$(printf &quot;%s &quot; &quot;${COMP_WORDS[@]}&quot;)
+
+    # ask yargs to generate completions.
+    type_list=`scripter --get-yargs-completions $args`
+
+    COMPREPLY=( $(compgen -W &quot;${type_list}&quot; -- ${cur_word}) )
+
+    # if no match was found, fall back to filename completion
+    if [ ${#COMPREPLY[@]} -eq 0 ]; then
+      COMPREPLY=( $(compgen -f -- &quot;${cur_word}&quot; ) )
+    fi
+
+    return 0
+}
+complete -F _yargs_completions scripter
+###-end-cli.coffee-completions-###
+</code></pre>
+<p>Put these lines into your <code>~/.bashrc</code> file.</p>
 <div class="pilwrap" id="usage">
   <h2>
     <a href="#usage" name="usage" class="pilcrow"></a>
@@ -167,11 +218,6 @@ exports.handler = <span class="hljs-function"><span class="hljs-params">(args, c
 <p>The script needs at least a description text and a handler function which will
 be called with the arguments and a callback. Optionally you may define some CLI
 options specific to these job.</p>
-<p>The following objects will be preset in the exports object:</p>
-<ul>
-<li>debug - instance to output debugging messages</li>
-<li>report - specific report object to add to</li>
-</ul>
 <p>This script has to be stored in</p>
 <ul>
 <li>subfolder <code>var/script</code></li>
@@ -182,6 +228,46 @@ options specific to these job.</p>
 <p>To include them you have to call the scripter once with it's <code>--update</code> option:</p>
 <pre><code>&gt; scripter --update
 </code></pre>
+<div class="pilwrap" id="preset-instances">
+  <h3>
+    <a href="#preset-instances" name="preset-instances" class="pilcrow"></a>
+Preset instances
+  </h3>
+</div>
+<p>The following objects will be preset in the exports object for you to use:</p>
+<ul>
+<li>debug - instance to output debugging messages</li>
+<li>report - specific report object to add to</li>
+</ul>
+<p>You may use them like:</p>
+<pre><code class="coffee">exports.handler = <span class="hljs-function"><span class="hljs-params">(args, cb)</span> -&gt;</span>
+  <span class="hljs-comment"># shortcuts to predefined objects</span>
+  debug = exports.debug
+  report = exports.report
+  <span class="hljs-comment"># code of the handler using them...</span>
+</code></pre>
+<div class="pilwrap" id="available-packages">
+  <h3>
+    <a href="#available-packages" name="available-packages" class="pilcrow"></a>
+Available packages
+  </h3>
+</div>
+<p>Additionally you may use any module which the scripter already installed by only
+requiring it like:</p>
+<ul>
+<li>alinex-async - async helper</li>
+<li>alinex-config - configuration settings</li>
+<li>alinex-validator - validation of entries</li>
+<li>alinex-fs - local filesystem manipulation</li>
+<li>alinex-database - database access</li>
+<li>alinex-exec - execution of command line tools, also remote</li>
+<li>alinex-mail - mail sending</li>
+<li>alinex-report - report generation (used to fill the report instance)</li>
+<li>alinex-util - different type utilities</li>
+<li>chalk - color code</li>
+<li>math - Math.js calculations</li>
+</ul>
+<p>More may be added later.</p>
 <div class="pilwrap" id="configuration">
   <h2>
     <a href="#configuration" name="configuration" class="pilcrow"></a>
