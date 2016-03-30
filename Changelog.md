@@ -4,6 +4,18 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.2 (2016-03-30)
+-------------------------------------------------
+- Make bash completion command hidden.
+- Upgraded report package, again.
+- Added math.js
+- Added more available packages for scripts.
+- Upgraded packages report and chalk.
+- Add quiet mode switch.
+- Use quiet mode on completion output.
+- Adding code completion generation for bash.
+- Allow other files to reside in scripts source folder without touching.
+
 Version 1.0.1 (2016-03-23)
 -------------------------------------------------
 - Fixed bin name.
