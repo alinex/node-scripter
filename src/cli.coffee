@@ -76,7 +76,7 @@ scripter.setup (err) ->
     quiet:
       alias: 'q'
       describe: "don't output header and footer"
-      boolean: true
+      type: 'boolean'
       global: true
     mail:
       alias: 'm'
