@@ -77,16 +77,15 @@ exports.job = (name, file) ->
     debug "run #{name} handler..."
     try
       lib.handler args, (err) ->
-        exit 1, err if err
         debug "finished #{name} handler"
         lib.end = new Date()
-        finish lib, args
+        finish lib, args, err
     catch error
       error.description = error.stack.split(/\n/)[1..].join '\n'
       exit 1, error
     return true
 
-finish = (job, args) ->
+finish = (job, args, err) ->
   console.log 'Done.'
   console.log()
   console.log job.report.toConsole()
@@ -101,8 +100,10 @@ finish = (job, args) ->
       start: job.start
       end: job.end
       report: job.report.toString()
-    , (err) ->
+    , (merr) ->
       exit 1, err if err
+      exit 128, merr if merr
       exit 0
   else
+    exit 1, err if err
     exit 0

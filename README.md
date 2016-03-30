@@ -130,11 +130,6 @@ The script needs at least a description text and a handler function which will
 be called with the arguments and a callback. Optionally you may define some CLI
 options specific to these job.
 
-The following objects will be preset in the exports object:
-
-- debug - instance to output debugging messages
-- report - specific report object to add to
-
 This script has to be stored in
 
 - subfolder `var/script`
@@ -146,6 +141,42 @@ as JavaScript or CoffeeScript.
 To include them you have to call the scripter once with it's `--update` option:
 
     > scripter --update
+
+
+### Preset instances
+
+The following objects will be preset in the exports object for you to use:
+
+- debug - instance to output debugging messages
+- report - specific report object to add to
+
+You may use them like:
+
+``` coffee
+exports.handler = (args, cb) ->
+  # shortcuts to predefined objects
+  debug = exports.debug
+  report = exports.report
+  # code of the handler using them...
+```
+
+### Available packages
+
+Additionally you may use any module which the scripter already installed by only
+requiring it like:
+
+- alinex-async - async helper
+- alinex-config - configuration settings
+- alinex-validator - validation of entries
+- alinex-fs - local filesystem manipulation
+- alinex-database - database access
+- alinex-exec - execution of command line tools, also remote
+- alinex-mail - mail sending
+- alinex-report - report generation (used to fill the report instance)
+- alinex-util - different type utilities
+- chalk - color code
+
+More may be added later.
 
 
 Configuration
