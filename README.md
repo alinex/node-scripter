@@ -175,6 +175,7 @@ requiring it like:
 - alinex-report - report generation (used to fill the report instance)
 - alinex-util - different type utilities
 - chalk - color code
+- math - Math.js calculations
 
 More may be added later.
 
