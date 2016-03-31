@@ -225,7 +225,10 @@ exports.handler = <span class="hljs-function"><span class="hljs-params">(args, c
     report.alert proc.result.error
   <span class="hljs-keyword">if</span> proc.stdout()
     data = string.toList proc.stdout(), <span class="hljs-regexp">/\n/</span>, <span class="hljs-regexp">/\s+/</span>
-    report.table data[<span class="hljs-number">1.</span>.], data[<span class="hljs-number">0</span>]</pre>
+    report.table data[<span class="hljs-number">1.</span>.], data[<span class="hljs-number">0</span>]
+
+exports.email =
+  <span class="hljs-attribute">base</span>: <span class="hljs-string">'default'</span></pre>
         </td>
       </tr>
     

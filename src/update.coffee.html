@@ -288,11 +288,11 @@ Execution
           <div class="pilwrap">
   <a class="pilcrow" href="#section-13" id="section-13"></a>
 </div>
-<p>extract description</p>
+<p>extract title</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    job.description = <span class="hljs-built_in">require</span>(job.to).description <span class="hljs-keyword">for</span> name, job <span class="hljs-keyword">of</span> jobs</pre>
+          <pre class="coffeescript">    job.title = <span class="hljs-built_in">require</span>(job.to).title <span class="hljs-keyword">for</span> name, job <span class="hljs-keyword">of</span> jobs</pre>
         </td>
       </tr>
     
@@ -313,7 +313,7 @@ Execution
         exports.addTo = function(yargs) {
           return yargs"""</span>
     <span class="hljs-keyword">for</span> name, job <span class="hljs-keyword">of</span> jobs
-      index += <span class="hljs-string">".command('<span class="hljs-subst">#{name}</span>', '<span class="hljs-subst">#{job.description}</span>', scripter.job('<span class="hljs-subst">#{name}</span>', '<span class="hljs-subst">#{job.to}</span>'))"</span>
+      index += <span class="hljs-string">".command('<span class="hljs-subst">#{name}</span>', '<span class="hljs-subst">#{job.title}</span>', scripter.job('<span class="hljs-subst">#{name}</span>', '<span class="hljs-subst">#{job.to}</span>'))"</span>
     index += <span class="hljs-string">""";
         };
       }).call(this);

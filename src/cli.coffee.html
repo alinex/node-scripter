@@ -224,7 +224,7 @@ Main routine
         <td class="code highlight">
           <pre class="coffeescript"><span class="hljs-keyword">unless</span> quiet
   <span class="hljs-built_in">console</span>.log logo
-  <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Initializing..."</span>
+  <span class="hljs-built_in">console</span>.log chalk.grey <span class="hljs-string">"Initializing..."</span>
 
 scripter.setup (err) -&gt;
   exit <span class="hljs-number">1</span>, err <span class="hljs-keyword">if</span> err</pre>
@@ -286,11 +286,11 @@ scripter.setup (err) -&gt;
     <span class="hljs-attribute">quiet</span>:
       <span class="hljs-attribute">alias</span>: <span class="hljs-string">'q'</span>
       <span class="hljs-attribute">describe</span>: <span class="hljs-string">"don't output header and footer"</span>
-      <span class="hljs-attribute">boolean</span>: <span class="hljs-literal">true</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
       <span class="hljs-attribute">global</span>: <span class="hljs-literal">true</span>
     <span class="hljs-attribute">mail</span>:
       <span class="hljs-attribute">alias</span>: <span class="hljs-string">'m'</span>
-      <span class="hljs-attribute">describe</span>: <span class="hljs-string">'send report using email (give template name)'</span>
+      <span class="hljs-attribute">describe</span>: <span class="hljs-string">'send report using email (address or template name)'</span>
       <span class="hljs-attribute">global</span>: <span class="hljs-literal">true</span>
       <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
     <span class="hljs-attribute">update</span>:

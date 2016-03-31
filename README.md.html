@@ -56,6 +56,10 @@
         <a href="#usage">Usage</a>
       </div>
 
+      <div class="heading h3">
+        <a href="#email">Email</a>
+      </div>
+
       <div class="heading h2">
         <a href="#scripts">Scripts</a>
       </div>
@@ -81,7 +85,7 @@
       </div>
 
       <div class="heading h3">
-        <a href="#email">Email</a>
+        <a href="#email-1">Email</a>
       </div>
 
       <div class="heading h2">
@@ -189,6 +193,19 @@ Goodbye
 <pre><code>&gt; scripter --help
 </code></pre>
 <p>This will show the possible jobs which are defined as scripts.</p>
+<div class="pilwrap" id="email">
+  <h3>
+    <a href="#email" name="email" class="pilcrow"></a>
+Email
+  </h3>
+</div>
+<p>By default the report from the script will only be displayed on screen. But you
+may also send it as an email. To do so use the <code>--mail</code> switch:</p>
+<ul>
+<li><code>--mail true</code> - will send it like defined in the script</li>
+<li><code>--mail default</code> - will send it using the default email template</li>
+<li><code>--mail alexander.schillingæmycompany.de</code> - will send it only to this address</li>
+</ul>
 <div class="pilwrap" id="scripts">
   <h2>
     <a href="#scripts" name="scripts" class="pilcrow"></a>
@@ -199,7 +216,8 @@ Scripts
 <pre><code class="coffee"><span class="hljs-comment"># Test Script</span>
 <span class="hljs-comment"># ========================================================================</span>
 
-exports.description = <span class="hljs-string">'only for testing'</span>
+exports.title = <span class="hljs-string">'only for testing'</span>
+exports.description = <span class="hljs-string">'what exactly will be done...'</span>
 
 exports.options =
   <span class="hljs-attribute">xtest</span>:
@@ -214,8 +232,11 @@ exports.handler = <span class="hljs-function"><span class="hljs-params">(args, c
   <span class="hljs-built_in">console</span>.log args
   <span class="hljs-comment"># done ending function</span>
   cb()
+
+exports.mail =
+  <span class="hljs-attribute">base</span>: default
 </code></pre>
-<p>The script needs at least a description text and a handler function which will
+<p>The script needs at least a title text and a handler function which will
 be called with the arguments and a callback. Optionally you may define some CLI
 options specific to these job.</p>
 <p>This script has to be stored in</p>
@@ -292,9 +313,9 @@ Database
 <p>Also you need the setup under <code>/database</code> like described in
 <a href="http://alinex.github.io/node-database">Database</a>.
 This is used to make the specific database connections.</p>
-<div class="pilwrap" id="email">
+<div class="pilwrap" id="email-1">
   <h3>
-    <a href="#email" name="email" class="pilcrow"></a>
+    <a href="#email-1" name="email-1" class="pilcrow"></a>
 Email
   </h3>
 </div>
