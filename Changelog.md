@@ -4,6 +4,13 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.0 (2016-03-31)
+-------------------------------------------------
+- Upgraded builder package.
+- Allow sending results per email.
+- Rename description entry as title and add new description entry.
+- Small typo fix in yargs config.
+
 Version 1.0.2 (2016-03-30)
 -------------------------------------------------
 - Make bash completion command hidden.
