@@ -95,7 +95,7 @@ finish = (job, args, err) ->
     mail.send
       base: args.mail
     ,
-      title: string.ucFirst job.name
+      title: job.title ? string.ucFirst job.name
       description: job.description
       start: job.start
       end: job.end

@@ -85,8 +85,8 @@ update = (files, target, cb) ->
   , (err) ->
     return cb err if err
     debug "generate index..."
-    # extract description
-    job.description = require(job.to).description for name, job of jobs
+    # extract title
+    job.title = require(job.to).title for name, job of jobs
     # create index
     index = """
       /** This file is used to include the job commands into yargs. */
@@ -96,7 +96,7 @@ update = (files, target, cb) ->
         exports.addTo = function(yargs) {
           return yargs"""
     for name, job of jobs
-      index += ".command('#{name}', '#{job.description}', scripter.job('#{name}', '#{job.to}'))"
+      index += ".command('#{name}', '#{job.title}', scripter.job('#{name}', '#{job.to}'))"
     index += """;
         };
       }).call(this);

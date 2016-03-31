@@ -110,7 +110,8 @@ To add functionality you have to write your own scripts like:
 # Test Script
 # ========================================================================
 
-exports.description = 'only for testing'
+exports.title = 'only for testing'
+exports.description = 'what exactly will be done...'
 
 exports.options =
   xtest:
@@ -127,7 +128,7 @@ exports.handler = (args, cb) ->
   cb()
 ```
 
-The script needs at least a description text and a handler function which will
+The script needs at least a title text and a handler function which will
 be called with the arguments and a callback. Optionally you may define some CLI
 options specific to these job.
 
