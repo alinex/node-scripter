@@ -13,7 +13,7 @@ chalk = require 'chalk'
 path = require 'path'
 # include alinex modules
 Report = require 'alinex-report'
-{string} = require 'alinex-util'
+{string, object} = require 'alinex-util'
 async = require 'alinex-async'
 Exec = require 'alinex-exec'
 config = require 'alinex-config'
@@ -60,6 +60,7 @@ exports.job = (name, file) ->
   lib.debug = require('debug') "scripter:#{name}"
   # return builder and handler
   builder: (yargs) ->
+    console.log 'BUILDER'
     yargs
     .usage "\nUsage: $0 #{name} [options]"
     # add options
@@ -75,9 +76,11 @@ exports.job = (name, file) ->
     lib.start = new Date()
     # run job
     debug "run #{name} handler..."
+    console.log()
     try
       lib.handler args, (err) ->
         debug "finished #{name} handler"
+        console.log()
         lib.end = new Date()
         finish lib, args, err
     catch error
@@ -92,15 +95,19 @@ finish = (job, args, err) ->
   console.log()
   if args.mail
     debug "sending email..."
-    mail.send
-      base: args.mail
-    ,
+    email = object.extend {}, {base: 'default'}, job.email
+    if ~args.mail.indexOf '@'
+      email.to = args.mail.split /\s*,\s*/
+    else
+      object.extend email, {base: args.mail} if config.get "/email/#{args.mail}"
+    mail.send email,
       title: job.title ? string.ucFirst job.name
       description: job.description
       start: job.start
       end: job.end
       report: job.report.toString()
     , (merr) ->
+      console.log chalk.grey "Email was send." unless merr
       exit 1, err if err
       exit 128, merr if merr
       exit 0

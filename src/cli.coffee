@@ -47,7 +47,7 @@ process.on 'exit', ->
 # -------------------------------------------------
 unless quiet
   console.log logo
-  console.log "Initializing..."
+  console.log chalk.grey "Initializing..."
 
 scripter.setup (err) ->
   exit 1, err if err
@@ -80,7 +80,7 @@ scripter.setup (err) ->
       global: true
     mail:
       alias: 'm'
-      describe: 'send report using email (give template name)'
+      describe: 'send report using email (address or template name)'
       global: true
       type: 'string'
     update:
