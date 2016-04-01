@@ -355,13 +355,13 @@ Get the job
   <span class="hljs-built_in">console</span>.log()
   <span class="hljs-built_in">console</span>.log job.report.toConsole()
   <span class="hljs-built_in">console</span>.log()
-  <span class="hljs-keyword">if</span> args.mail
+  <span class="hljs-keyword">if</span> args.mail?
     debug <span class="hljs-string">"sending email..."</span>
-    email = object.extend {}, {<span class="hljs-attribute">base</span>: <span class="hljs-string">'default'</span>}, job.email
+    email = object.extendArrayReplace {}, {<span class="hljs-attribute">base</span>: <span class="hljs-string">'default'</span>}, job.email
     <span class="hljs-keyword">if</span> ~args.mail.indexOf <span class="hljs-string">'@'</span>
       email.to = args.mail.split <span class="hljs-regexp">/\s*,\s*/</span>
-    <span class="hljs-keyword">else</span>
-      object.extend email, {<span class="hljs-attribute">base</span>: args.mail} <span class="hljs-keyword">if</span> config.get <span class="hljs-string">"/email/<span class="hljs-subst">#{args.mail}</span>"</span>
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> args.mail <span class="hljs-keyword">and</span> config.get <span class="hljs-string">"/email/<span class="hljs-subst">#{args.mail}</span>"</span>
+      object.extend email, {<span class="hljs-attribute">base</span>: args.mail}
     mail.send email,
       <span class="hljs-attribute">title</span>: job.title ? string.ucFirst job.name
       <span class="hljs-attribute">description</span>: job.description
