@@ -4,6 +4,13 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.1 (2016-04-01)
+-------------------------------------------------
+- Upgraded builder package.
+- Allow email sending with empty switch.
+- Fix overwrite of email addresses.
+- Upgraded report package.
+
 Version 1.1.0 (2016-03-31)
 -------------------------------------------------
 - Upgraded builder package.
