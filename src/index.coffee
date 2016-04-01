@@ -95,7 +95,7 @@ finish = (job, args, err) ->
   console.log()
   if args.mail
     debug "sending email..."
-    email = object.extend {}, {base: 'default'}, job.email
+    email = object.extendArrayReplace {}, {base: 'default'}, job.email
     if ~args.mail.indexOf '@'
       email.to = args.mail.split /\s*,\s*/
     else
