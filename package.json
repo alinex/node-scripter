@@ -55,7 +55,7 @@
     "yargs": "^4.3.2"
   },
   "devDependencies": {
-    "alinex-builder": "^1.2.5",
+    "alinex-builder": "^1.2.6",
     "chai": "^3.5.0"
   },
   "optionalDependencies": {},
