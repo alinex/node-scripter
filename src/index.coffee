@@ -93,13 +93,13 @@ finish = (job, args, err) ->
   console.log()
   console.log job.report.toConsole()
   console.log()
-  if args.mail
+  if args.mail?
     debug "sending email..."
     email = object.extendArrayReplace {}, {base: 'default'}, job.email
     if ~args.mail.indexOf '@'
       email.to = args.mail.split /\s*,\s*/
-    else
-      object.extend email, {base: args.mail} if config.get "/email/#{args.mail}"
+    else if args.mail and config.get "/email/#{args.mail}"
+      object.extend email, {base: args.mail}
     mail.send email,
       title: job.title ? string.ucFirst job.name
       description: job.description

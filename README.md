@@ -106,7 +106,7 @@ This will show the possible jobs which are defined as scripts.
 By default the report from the script will only be displayed on screen. But you
 may also send it as an email. To do so use the `--mail` switch:
 
-- `--mail true` - will send it like defined in the script
+- `--mail` - will send it like defined in the script
 - `--mail default` - will send it using the default email template
 - `--mail alexander.schillingæmycompany.de` - will send it only to this address
 
