@@ -4,6 +4,11 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.2 (2016-04-06)
+-------------------------------------------------
+- Remove bcc and cc email addresses if specific to is given.
+- Upgraded mail, report, mathjs, yargs and more packages.
+
 Version 1.1.1 (2016-04-01)
 -------------------------------------------------
 - Upgraded builder package.
