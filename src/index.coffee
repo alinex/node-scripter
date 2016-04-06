@@ -100,6 +100,10 @@ finish = (job, args, err) ->
       email.to = args.mail.split /\s*,\s*/
     else if args.mail and config.get "/email/#{args.mail}"
       object.extend email, {base: args.mail}
+    email = mail.resolve email
+    if ~args.mail.indexOf '@'
+      delete email.cc
+      delete email.bcc
     mail.send email,
       title: job.title ? string.ucFirst job.name
       description: job.description
