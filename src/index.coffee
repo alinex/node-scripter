@@ -60,7 +60,6 @@ exports.job = (name, file) ->
   lib.debug = require('debug') "scripter:#{name}"
   # return builder and handler
   builder: (yargs) ->
-    console.log 'BUILDER'
     yargs
     .usage "\nUsage: $0 #{name} [options]"
     # add options
