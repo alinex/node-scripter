@@ -362,6 +362,10 @@ Get the job
       email.to = args.mail.split <span class="hljs-regexp">/\s*,\s*/</span>
     <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> args.mail <span class="hljs-keyword">and</span> config.get <span class="hljs-string">"/email/<span class="hljs-subst">#{args.mail}</span>"</span>
       object.extend email, {<span class="hljs-attribute">base</span>: args.mail}
+    email = mail.resolve email
+    <span class="hljs-keyword">if</span> ~args.mail.indexOf <span class="hljs-string">'@'</span>
+      <span class="hljs-keyword">delete</span> email.cc
+      <span class="hljs-keyword">delete</span> email.bcc
     mail.send email,
       <span class="hljs-attribute">title</span>: job.title ? string.ucFirst job.name
       <span class="hljs-attribute">description</span>: job.description
