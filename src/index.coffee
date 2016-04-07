@@ -63,8 +63,9 @@ exports.job = (name, file) ->
     yargs
     .usage "\nUsage: $0 #{name} [options]"
     # add options
-    yargs.option key, def for key, def of lib.options
-    yargs.group Object.keys(lib.options), "#{string.ucFirst name} Job Options:"
+    if lib.options
+      yargs.option key, def for key, def of lib.options
+      yargs.group Object.keys(lib.options), "#{string.ucFirst name} Job Options:"
     # help
     yargs.strict()
     .help 'h'
