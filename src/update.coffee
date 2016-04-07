@@ -64,17 +64,24 @@ update = (files, target, cb) ->
     job.to = path.join target, "#{name}.js"
     switch job.type
       when 'coffee'
-        debug "-> #{job.to} (compile)"
+        debug "-> #{job.to} (compile)222"
         fs.readFile job.source, 'utf8', (err, data) ->
           return cb err if err
           compiled = coffee.compile data,
             filename: path.basename file
             generatedFile: path.basename job.to
-          fs.writeFile job.to, """
-          /** This file has been compiled from #{job.source} */
+            sourceMap: true
+          async.parallel [
+            (cb) ->
+              fs.writeFile job.to, """
+              /** This file has been compiled from #{job.source} */
 
-          #{compiled}
-          """, cb
+              #{compiled.js}
+              //# sourceMappingURL=#{path.basename job.to}.map"
+              """, cb
+            (cb) ->
+              fs.writeFile "#{job.to}.map", compiled.v3SourceMap, cb
+          ], cb
       when 'js'
         debug "-> #{job.to} (copy)"
         fs.copy job.source, job.to, cb
