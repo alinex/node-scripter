@@ -72,6 +72,8 @@ exports.job = (name, file) ->
     .alias 'h', 'help'
     .epilogue "For more information, look into the man page."
   handler: (args) ->
+    try
+      args.json = JSON.parse args.json if args.json
     # init report
     lib.start = new Date()
     # run job
@@ -104,6 +106,13 @@ finish = (job, args, err) ->
     if ~args.mail.indexOf '@'
       delete email.cc
       delete email.bcc
+    if meta = args.json?._mail
+      email.cc = meta.cc
+      email.bcc = meta.bcc
+      email.subject = "Re: #{meta.subject}" if meta.subject
+      if meta.messageId
+        email.inReplyTo = meta.messageId
+        email.references = [meta.messageId]
     mail.send email,
       title: job.title ? string.ucFirst job.name
       description: job.description

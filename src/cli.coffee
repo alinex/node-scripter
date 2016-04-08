@@ -83,6 +83,10 @@ scripter.setup (err) ->
       describe: 'send report using email (address or template name)'
       global: true
       type: 'string'
+    json:
+      alias: 'j'
+      description: 'json formatted data object'
+      type: 'string'
     update:
       alias: 'u'
       describe: 'update scripts'
