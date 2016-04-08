@@ -86,6 +86,7 @@ scripter.setup (err) ->
     json:
       alias: 'j'
       description: 'json formatted data object'
+      global: true
       type: 'string'
     update:
       alias: 'u'
