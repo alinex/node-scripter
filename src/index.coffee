@@ -58,6 +58,7 @@ exports.job = (name, file) ->
   lib.name = name
   lib.report = new Report()
   lib.debug = require('debug') "scripter:#{name}"
+  lib.sendmail = sendmail
   # return builder and handler
   builder: (yargs) ->
     yargs
@@ -95,35 +96,39 @@ finish = (job, args, err) ->
   console.log()
   console.log job.report.toConsole()
   console.log()
-  if args.mail?
-    debug "sending email..."
-    email = object.extendArrayReplace {}, {base: 'default'}, job.email
-    if ~args.mail.indexOf '@'
-      email.to = args.mail.split /\s*,\s*/
-    else if args.mail and config.get "/email/#{args.mail}"
-      object.extend email, {base: args.mail}
-    email = mail.resolve email
-    if ~args.mail.indexOf '@'
-      delete email.cc
-      delete email.bcc
-    if meta = args.json?._mail?.header
-      email.cc = meta.cc
-      email.bcc = meta.bcc
-      email.subject = "Re: #{meta.subject}" if meta.subject
-      if meta.messageId
-        email.inReplyTo = meta.messageId
-        email.references = [meta.messageId]
-    mail.send email,
-      title: job.title ? string.ucFirst job.name
-      description: job.description
-      start: job.start
-      end: job.end
-      report: job.report.toString()
-    , (merr) ->
-      console.log chalk.grey "Email was send." unless merr
-      exit 1, err if err
-      exit 128, merr if merr
-      exit 0
-  else
+  unless args.mail?
     exit 1, err if err
     exit 0
+  sendmail job, args, (merr) ->
+    exit 1, err if err
+    exit 128, merr if merr
+    exit 0
+
+sendmail = (job, args, cb) ->
+  return cb() unless args.mail?
+  debug "sending email..."
+  email = object.extendArrayReplace {}, {base: 'default'}, job.email
+  if ~args.mail.indexOf '@'
+    email.to = args.mail.split /\s*,\s*/
+  else if args.mail and config.get "/email/#{args.mail}"
+    object.extend email, {base: args.mail}
+  email = mail.resolve email
+  if ~args.mail.indexOf '@'
+    delete email.cc
+    delete email.bcc
+  if meta = args.json?._mail?.header
+    email.cc = meta.cc
+    email.bcc = meta.bcc
+    email.subject = "Re: #{meta.subject}" if meta.subject
+    if meta.messageId
+      email.inReplyTo = meta.messageId
+      email.references = [meta.messageId]
+  mail.send email,
+    title: job.title ? string.ucFirst job.name
+    description: job.description
+    start: job.start
+    end: job.end
+    report: job.report.toString()
+  , (merr) ->
+    console.log chalk.grey "Email was send." unless merr
+    cb merr

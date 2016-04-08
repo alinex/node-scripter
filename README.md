@@ -163,6 +163,9 @@ The following objects will be preset in the exports object for you to use:
 
 - debug - instance to output debugging messages
 - report - specific report object to add to
+- sendmail(job, args, cb) - send an email without ending the script
+  (another one will be send if the script finishes, prevent last mail with
+  process.exit)
 
 You may use them like:
 
