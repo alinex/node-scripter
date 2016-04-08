@@ -106,7 +106,7 @@ finish = (job, args, err) ->
     if ~args.mail.indexOf '@'
       delete email.cc
       delete email.bcc
-    if meta = args.json?._mail
+    if meta = args.json?._mail?.header
       email.cc = meta.cc
       email.bcc = meta.bcc
       email.subject = "Re: #{meta.subject}" if meta.subject
