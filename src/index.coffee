@@ -104,7 +104,7 @@ finish = (job, args, err) ->
     exit 128, merr if merr
     exit 0
 
-sendmail = (job, args, cb) ->
+sendmail = (job, args, cb = ->) ->
   return cb() unless args.mail?
   debug "sending email..."
   email = object.extendArrayReplace {}, {base: 'default'}, job.email
