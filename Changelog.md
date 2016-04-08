@@ -4,6 +4,19 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.2.0 (2016-04-08)
+-------------------------------------------------
+- Added sendmail function to be used from script.
+- Move mail functionality into own function accessible from script.
+- Support _mail settings in json parameter to send mail as reply.
+- Support _mail settings in json parameter to send mail as reply.
+- Upgraded config, util and validator packages.
+- Upgraded mail and report packages.
+- Use json settings with _mail from command line.
+- Add source maps for javascript.
+- Allow scripts without options.
+- Remove debug output.
+
 Version 1.1.2 (2016-04-06)
 -------------------------------------------------
 - Remove bcc and cc email addresses if specific to is given.
