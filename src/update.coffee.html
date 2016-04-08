@@ -246,14 +246,17 @@ Execution
     job.to = path.join target, <span class="hljs-string">"<span class="hljs-subst">#{name}</span>.js"</span>
     <span class="hljs-keyword">switch</span> job.type
       <span class="hljs-keyword">when</span> <span class="hljs-string">'coffee'</span>
-        debug <span class="hljs-string">"-&gt; <span class="hljs-subst">#{job.to}</span> (compile)"</span>
+        debug <span class="hljs-string">"-&gt; <span class="hljs-subst">#{job.to}</span> (compile)222"</span>
         fs.readFile job.source, <span class="hljs-string">'utf8'</span>, <span class="hljs-function"><span class="hljs-params">(err, data)</span> -&gt;</span>
           <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
           compiled = coffee.compile data,
             <span class="hljs-attribute">filename</span>: path.basename file
             <span class="hljs-attribute">generatedFile</span>: path.basename job.to
-          fs.writeFile job.to, <span class="hljs-string">"""
-          /** This file has been compiled from <span class="hljs-subst">#{job.source}</span> */
+            <span class="hljs-attribute">sourceMap</span>: <span class="hljs-literal">true</span>
+          async.parallel [
+            (cb) -&gt;
+              fs.writeFile job.to, <span class="hljs-string">"""
+              /** This file has been compiled from <span class="hljs-subst">#{job.source}</span> */
 
 </span></pre>
         </td>
@@ -264,11 +267,15 @@ Execution
           <div class="pilwrap">
   <a class="pilcrow" href="#section-12" id="section-12"></a>
 </div>
-<p>{compiled}</p>
+<p>{compiled.js}</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">          <span class="hljs-string">""", cb
+          <pre class="coffeescript">              <span class="hljs-regexp">//</span><span class="hljs-comment"># sourceMappingURL=#{path.basename job.to}.map"</span>
+              <span class="hljs-string">""", cb
+            (cb) -&gt;
+              fs.writeFile "<span class="hljs-subst">#{job.to}</span>.map", compiled.v3SourceMap, cb
+          ], cb
       when 'js'
         debug "-&gt; <span class="hljs-subst">#{job.to}</span> (copy)"
         fs.copy job.source, job.to, cb

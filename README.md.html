@@ -259,6 +259,9 @@ Preset instances
 <ul>
 <li>debug - instance to output debugging messages</li>
 <li>report - specific report object to add to</li>
+<li>sendmail(job, args, cb) - send an email without ending the script
+(another one will be send if the script finishes, prevent last mail with
+process.exit)</li>
 </ul>
 <p>You may use them like:</p>
 <pre><code class="coffee">exports.handler = <span class="hljs-function"><span class="hljs-params">(args, cb)</span> -&gt;</span>
