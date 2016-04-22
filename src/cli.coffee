@@ -50,7 +50,7 @@ unless quiet
   console.log chalk.grey "Initializing..."
 
 scripter.setup (err) ->
-  exit 1, err if err
+  exit 16, err if err
   # Start argument parsing
   yargs
   .usage "\nUsage: $0 <job> [options]"
@@ -115,7 +115,7 @@ scripter.setup (err) ->
   .fail (err) ->
     err = new Error "CLI #{err}"
     err.description = 'Specify --help for available options'
-    exit 1, err
+    exit 2, err
   # now parse the arguments
   args = yargs.argv
   # implement some global switches
@@ -124,7 +124,7 @@ scripter.setup (err) ->
   unless args._.length
     # generall command
     unless args.update
-      exit 1, new Error "Nothing to do specify --help for available options"
+      exit 2, new Error "Nothing to do specify --help for available options"
     console.log "Updating scripts..."
     # update scripts
     require('./update') (err) ->

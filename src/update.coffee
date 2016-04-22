@@ -92,8 +92,6 @@ update = (files, target, cb) ->
   , (err) ->
     return cb err if err
     debug "generate index..."
-    # extract title
-    job.title = require(job.to).title for name, job of jobs
     # create index
     index = """
       /** This file is used to include the job commands into yargs. */
