@@ -64,7 +64,7 @@ update = (files, target, cb) ->
     job.to = path.join target, "#{name}.js"
     switch job.type
       when 'coffee'
-        debug "-> #{job.to} (compile)222"
+        debug "-> #{job.to} (compile)"
         fs.readFile job.source, 'utf8', (err, data) ->
           return cb err if err
           compiled = coffee.compile data,
