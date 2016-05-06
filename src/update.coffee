@@ -9,11 +9,11 @@
 # include base modules
 debug = require('debug') 'scripter:update'
 chalk = require 'chalk'
+async = require 'async'
 path = require 'path'
 coffee = require 'coffee-script'
 # include alinex modules
 fs = require 'alinex-fs'
-async = require 'alinex-async'
 # include classes and helpers
 
 
@@ -37,7 +37,9 @@ module.exports = (cb) ->
       # search
       debug "search for scripts..."
       # filter to only existing directories
-      async.filter search, fs.exists, (search) ->
+      async.filter search, (file, cb) ->
+        fs.exists file, (exists) -> cb null, exists
+      , (_, search) ->
         async.map search, (dir, cb) ->
           debug "-> #{dir}"
           fs.find dir,
