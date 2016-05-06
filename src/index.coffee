@@ -13,7 +13,7 @@ chalk = require 'chalk'
 path = require 'path'
 # include alinex modules
 Report = require 'alinex-report'
-{string, object} = require 'alinex-util'
+util = require 'alinex-util'
 async = require 'alinex-async'
 Exec = require 'alinex-exec'
 config = require 'alinex-config'
@@ -66,7 +66,7 @@ exports.job = (name, file) ->
     # add options
     if lib.options
       yargs.option key, def for key, def of lib.options
-      yargs.group Object.keys(lib.options), "#{string.ucFirst name} Job Options:"
+      yargs.group Object.keys(lib.options), "#{util.string.ucFirst name} Job Options:"
     # help
     yargs.strict()
     .help 'h'
@@ -107,11 +107,11 @@ finish = (job, args, err) ->
 sendmail = (job, args, cb = ->) ->
   return cb() unless args.mail?
   debug "sending email..."
-  email = object.extendArrayReplace {}, {base: 'default'}, job.email
+  email = util.extend 'MODE ARRAY_REPLACE', {base: 'default'}, util.clone job.email
   if ~args.mail.indexOf '@'
     email.to = args.mail.split /\s*,\s*/
   else if args.mail and config.get "/email/#{args.mail}"
-    object.extend email, {base: args.mail}
+    util.extend email, {base: args.mail}
   email = mail.resolve email
   if ~args.mail.indexOf '@'
     delete email.cc
@@ -124,7 +124,7 @@ sendmail = (job, args, cb = ->) ->
       email.inReplyTo = meta.messageId
       email.references = [meta.messageId]
   mail.send email,
-    title: job.title ? string.ucFirst job.name
+    title: job.title ? util.string.ucFirst job.name
     description: job.description
     start: job.start
     end: job.end
