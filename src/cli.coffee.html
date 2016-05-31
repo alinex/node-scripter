@@ -7,7 +7,7 @@
   <script src="../doc-filelist.js"></script>
   <script>
     var relativeDir = "../";
-    var thisFile = "home/alex/github/node-scripter/src/cli.coffee";
+    var thisFile = "src/cli.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
@@ -227,7 +227,7 @@ Main routine
   <span class="hljs-built_in">console</span>.log chalk.grey <span class="hljs-string">"Initializing..."</span>
 
 scripter.setup (err) -&gt;
-  exit <span class="hljs-number">1</span>, err <span class="hljs-keyword">if</span> err</pre>
+  exit <span class="hljs-number">16</span>, err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     
@@ -270,38 +270,38 @@ scripter.setup (err) -&gt;
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  .options
-    <span class="hljs-attribute">help</span>:
-      <span class="hljs-attribute">alias</span>: <span class="hljs-string">'h'</span>,
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">'display help message'</span>
-    <span class="hljs-attribute">nocolors</span>:
-      <span class="hljs-attribute">alias</span>: <span class="hljs-string">'C'</span>
-      <span class="hljs-attribute">describe</span>: <span class="hljs-string">'turn of color output'</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
-      <span class="hljs-attribute">global</span>: <span class="hljs-literal">true</span>
-    <span class="hljs-attribute">verbose</span>:
-      <span class="hljs-attribute">alias</span>: <span class="hljs-string">'v'</span>
-      <span class="hljs-attribute">describe</span>: <span class="hljs-string">'run in verbose mode (multiple makes more verbose)'</span>
-      <span class="hljs-attribute">count</span>: <span class="hljs-literal">true</span>
-      <span class="hljs-attribute">global</span>: <span class="hljs-literal">true</span>
-    <span class="hljs-attribute">quiet</span>:
-      <span class="hljs-attribute">alias</span>: <span class="hljs-string">'q'</span>
-      <span class="hljs-attribute">describe</span>: <span class="hljs-string">"don't output header and footer"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
-      <span class="hljs-attribute">global</span>: <span class="hljs-literal">true</span>
-    <span class="hljs-attribute">mail</span>:
-      <span class="hljs-attribute">alias</span>: <span class="hljs-string">'m'</span>
-      <span class="hljs-attribute">describe</span>: <span class="hljs-string">'send report using email (address or template name)'</span>
-      <span class="hljs-attribute">global</span>: <span class="hljs-literal">true</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-    <span class="hljs-attribute">json</span>:
-      <span class="hljs-attribute">alias</span>: <span class="hljs-string">'j'</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">'json formatted data object'</span>
-      <span class="hljs-attribute">global</span>: <span class="hljs-literal">true</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-    <span class="hljs-attribute">update</span>:
-      <span class="hljs-attribute">alias</span>: <span class="hljs-string">'u'</span>
-      <span class="hljs-attribute">describe</span>: <span class="hljs-string">'update scripts'</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
+    help:
+      alias: <span class="hljs-string">'h'</span>,
+      description: <span class="hljs-string">'display help message'</span>
+    nocolors:
+      alias: <span class="hljs-string">'C'</span>
+      describe: <span class="hljs-string">'turn of color output'</span>
+      type: <span class="hljs-string">'boolean'</span>
+      global: <span class="hljs-literal">true</span>
+    verbose:
+      alias: <span class="hljs-string">'v'</span>
+      describe: <span class="hljs-string">'run in verbose mode (multiple makes more verbose)'</span>
+      count: <span class="hljs-literal">true</span>
+      global: <span class="hljs-literal">true</span>
+    quiet:
+      alias: <span class="hljs-string">'q'</span>
+      describe: <span class="hljs-string">"don't output header and footer"</span>
+      type: <span class="hljs-string">'boolean'</span>
+      global: <span class="hljs-literal">true</span>
+    mail:
+      alias: <span class="hljs-string">'m'</span>
+      describe: <span class="hljs-string">'send report using email (address or template name)'</span>
+      global: <span class="hljs-literal">true</span>
+      type: <span class="hljs-string">'string'</span>
+    json:
+      alias: <span class="hljs-string">'j'</span>
+      description: <span class="hljs-string">'json formatted data object'</span>
+      global: <span class="hljs-literal">true</span>
+      type: <span class="hljs-string">'string'</span>
+    update:
+      alias: <span class="hljs-string">'u'</span>
+      describe: <span class="hljs-string">'update scripts'</span>
+      type: <span class="hljs-string">'boolean'</span>
   .group [<span class="hljs-string">'u'</span>], <span class="hljs-string">'Core Options:'</span></pre>
         </td>
       </tr>
@@ -358,7 +358,7 @@ scripter.setup (err) -&gt;
   .fail (err) -&gt;
     err = <span class="hljs-keyword">new</span> Error <span class="hljs-string">"CLI <span class="hljs-subst">#{err}</span>"</span>
     err.description = <span class="hljs-string">'Specify --help for available options'</span>
-    exit <span class="hljs-number">1</span>, err</pre>
+    exit <span class="hljs-number">2</span>, err</pre>
         </td>
       </tr>
     
@@ -400,7 +400,7 @@ scripter.setup (err) -&gt;
         </td>
         <td class="code highlight">
           <pre class="coffeescript">    <span class="hljs-keyword">unless</span> args.update
-      exit <span class="hljs-number">1</span>, <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Nothing to do specify --help for available options"</span>
+      exit <span class="hljs-number">2</span>, <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Nothing to do specify --help for available options"</span>
     <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Updating scripts..."</span></pre>
         </td>
       </tr>

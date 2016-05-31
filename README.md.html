@@ -7,7 +7,7 @@
   <script src="doc-filelist.js"></script>
   <script>
     var relativeDir = "";
-    var thisFile = "home/alex/github/node-scripter/README.md";
+    var thisFile = "README.md";
     var defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
@@ -135,7 +135,7 @@ Install
 <p>After global installation you may directly call <code>scripter</code> from anywhere.</p>
 <pre><code class="sh">scripter --help
 </code></pre>
-<p>Always have a look at the latest <a href="Changelog.md.html.html">changes</a>.</p>
+<p>Always have a look at the latest <a href="Changelog.md.html">changes</a>.</p>
 <div class="pilwrap" id="bash-code-completion">
   <h3>
     <a href="#bash-code-completion" name="bash-code-completion" class="pilcrow"></a>
@@ -220,9 +220,9 @@ exports.title = <span class="hljs-string">'only for testing'</span>
 exports.description = <span class="hljs-string">'what exactly will be done...'</span>
 
 exports.options =
-  <span class="hljs-attribute">xtest</span>:
-    <span class="hljs-attribute">alias</span>: <span class="hljs-string">'x'</span>
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+  xtest:
+    alias: <span class="hljs-string">'x'</span>
+    type: <span class="hljs-string">'string'</span>
 
 exports.handler = <span class="hljs-function"><span class="hljs-params">(args, cb)</span> -&gt;</span>
   <span class="hljs-comment"># shortcuts to predefined objects</span>
@@ -234,7 +234,7 @@ exports.handler = <span class="hljs-function"><span class="hljs-params">(args, c
   cb()
 
 exports.mail =
-  <span class="hljs-attribute">base</span>: default
+  base: default
 </code></pre>
 <p>The script needs at least a title text and a handler function which will
 be called with the arguments and a callback. Optionally you may define some CLI

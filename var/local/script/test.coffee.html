@@ -7,7 +7,7 @@
   <script src="../../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../../";
-    var thisFile = "home/alex/github/node-scripter/var/local/script/test.coffee";
+    var thisFile = "var/local/script/test.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../../doc-script.js"></script>
@@ -126,10 +126,10 @@ Meta Data
 exports.description = <span class="hljs-string">'General testing of server'</span>
 
 exports.options =
-  <span class="hljs-attribute">server</span>:
-    <span class="hljs-attribute">alias</span>: <span class="hljs-string">'s'</span>
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-    <span class="hljs-attribute">describe</span>: <span class="hljs-string">'server to check'</span></pre>
+  server:
+    alias: <span class="hljs-string">'s'</span>
+    type: <span class="hljs-string">'string'</span>
+    describe: <span class="hljs-string">'server to check'</span></pre>
         </td>
       </tr>
     
@@ -175,19 +175,19 @@ exports.handler = <span class="hljs-function"><span class="hljs-params">(args, c
           <pre class="coffeescript">  debug <span class="hljs-string">"get data from remote server..."</span>
   <span class="hljs-built_in">console</span>.log args.server
   async.mapOf
-    <span class="hljs-attribute">df</span>:
-      <span class="hljs-attribute">remote</span>: args.server
-      <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'df'</span>
-      <span class="hljs-attribute">args</span>: [
+    df:
+      remote: args.server
+      cmd: <span class="hljs-string">'df'</span>
+      args: [
         <span class="hljs-string">'-t'</span>, <span class="hljs-string">'ext4'</span>
         <span class="hljs-string">'-t'</span>, <span class="hljs-string">'vfat'</span>
       ]
-      <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
-    <span class="hljs-attribute">conntrack</span>:
-      <span class="hljs-attribute">remote</span>: args.server
-      <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'grep'</span>
-      <span class="hljs-attribute">args</span>: [ <span class="hljs-string">'conntrack'</span>, <span class="hljs-string">'/var/log/syslog'</span> ]
-      <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
+      priority: <span class="hljs-string">'immediately'</span>
+    conntrack:
+      remote: args.server
+      cmd: <span class="hljs-string">'grep'</span>
+      args: [ <span class="hljs-string">'conntrack'</span>, <span class="hljs-string">'/var/log/syslog'</span> ]
+      priority: <span class="hljs-string">'immediately'</span>
   , <span class="hljs-function"><span class="hljs-params">(setup, name, cb)</span> -&gt;</span>
     Exec.run setup, <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span> cb <span class="hljs-literal">null</span>, proc
   , <span class="hljs-function"><span class="hljs-params">(err, data)</span> -&gt;</span>
@@ -228,7 +228,7 @@ exports.handler = <span class="hljs-function"><span class="hljs-params">(args, c
     report.table data[<span class="hljs-number">1.</span>.], data[<span class="hljs-number">0</span>]
 
 exports.email =
-  <span class="hljs-attribute">base</span>: <span class="hljs-string">'default'</span></pre>
+  base: <span class="hljs-string">'default'</span></pre>
         </td>
       </tr>
     

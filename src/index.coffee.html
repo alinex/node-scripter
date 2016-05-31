@@ -7,7 +7,7 @@
   <script src="../doc-filelist.js"></script>
   <script>
     var relativeDir = "../";
-    var thisFile = "home/alex/github/node-scripter/src/index.coffee";
+    var thisFile = "src/index.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
@@ -116,6 +116,7 @@ Node Modules
         <td class="code highlight">
           <pre class="coffeescript">debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>) <span class="hljs-string">'scripter'</span>
 chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
+async = <span class="hljs-built_in">require</span> <span class="hljs-string">'async'</span>
 path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span></pre>
         </td>
       </tr>
@@ -130,8 +131,7 @@ path = <span class="hljs-built_in">require</span> <span class="hljs-string">'pat
         </td>
         <td class="code highlight">
           <pre class="coffeescript">Report = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-report'</span>
-{string, object} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
-async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span>
+util = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
 Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-exec'</span>
 config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
 database = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-database'</span>
@@ -278,7 +278,7 @@ Get the job
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">builder</span>: <span class="hljs-function"><span class="hljs-params">(yargs)</span> -&gt;</span>
+          <pre class="coffeescript">  builder: <span class="hljs-function"><span class="hljs-params">(yargs)</span> -&gt;</span>
     yargs
     .usage <span class="hljs-string">"\nUsage: $0 <span class="hljs-subst">#{name}</span> [options]"</span></pre>
         </td>
@@ -295,7 +295,7 @@ Get the job
         <td class="code highlight">
           <pre class="coffeescript">    <span class="hljs-keyword">if</span> lib.options
       yargs.option key, def <span class="hljs-keyword">for</span> key, def <span class="hljs-keyword">of</span> lib.options
-      yargs.group Object.keys(lib.options), <span class="hljs-string">"<span class="hljs-subst">#{string.ucFirst name}</span> Job Options:"</span></pre>
+      yargs.group Object.keys(lib.options), <span class="hljs-string">"<span class="hljs-subst">#{util.string.ucFirst name}</span> Job Options:"</span></pre>
         </td>
       </tr>
     
@@ -312,7 +312,7 @@ Get the job
     .help <span class="hljs-string">'h'</span>
     .alias <span class="hljs-string">'h'</span>, <span class="hljs-string">'help'</span>
     .epilogue <span class="hljs-string">"For more information, look into the man page."</span>
-  <span class="hljs-attribute">handler</span>: <span class="hljs-function"><span class="hljs-params">(args)</span> -&gt;</span>
+  handler: <span class="hljs-function"><span class="hljs-params">(args)</span> -&gt;</span>
     <span class="hljs-keyword">try</span>
       args.json = JSON.parse args.json <span class="hljs-keyword">if</span> args.json</pre>
         </td>
@@ -369,11 +369,11 @@ Get the job
 <span class="hljs-title">sendmail</span> = <span class="hljs-params">(job, args, cb = -&gt;)</span> -&gt;</span>
   <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> args.mail?
   debug <span class="hljs-string">"sending email..."</span>
-  email = object.extendArrayReplace {}, {<span class="hljs-attribute">base</span>: <span class="hljs-string">'default'</span>}, job.email
+  email = util.extend <span class="hljs-string">'MODE ARRAY_REPLACE'</span>, {base: <span class="hljs-string">'default'</span>}, util.clone job.email
   <span class="hljs-keyword">if</span> ~args.mail.indexOf <span class="hljs-string">'@'</span>
     email.to = args.mail.split <span class="hljs-regexp">/\s*,\s*/</span>
   <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> args.mail <span class="hljs-keyword">and</span> config.get <span class="hljs-string">"/email/<span class="hljs-subst">#{args.mail}</span>"</span>
-    object.extend email, {<span class="hljs-attribute">base</span>: args.mail}
+    util.extend email, {base: args.mail}
   email = mail.resolve email
   <span class="hljs-keyword">if</span> ~args.mail.indexOf <span class="hljs-string">'@'</span>
     <span class="hljs-keyword">delete</span> email.cc
@@ -386,11 +386,11 @@ Get the job
       email.inReplyTo = meta.messageId
       email.references = [meta.messageId]
   mail.send email,
-    <span class="hljs-attribute">title</span>: job.title ? string.ucFirst job.name
-    <span class="hljs-attribute">description</span>: job.description
-    <span class="hljs-attribute">start</span>: job.start
-    <span class="hljs-attribute">end</span>: job.end
-    <span class="hljs-attribute">report</span>: job.report.toString()
+    title: job.title ? util.string.ucFirst job.name
+    description: job.description
+    start: job.start
+    end: job.end
+    report: job.report.toString()
   , <span class="hljs-function"><span class="hljs-params">(merr)</span> -&gt;</span>
     <span class="hljs-built_in">console</span>.log chalk.grey <span class="hljs-string">"Email was send."</span> <span class="hljs-keyword">unless</span> merr
     cb merr</pre>
