@@ -53,7 +53,7 @@ exports.job = (name, file) ->
   try
     lib = require file
   catch error
-    exit 1, error if error
+    exit 1, error if new Error "Problem loading compiled script from #{file}: #{error.message}"
   # setup module
   lib.name = name
   lib.report = new Report()

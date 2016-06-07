@@ -26,7 +26,8 @@ module.exports = (cb) ->
     path.join path.dirname(__dirname), 'var/src/script'
     path.join path.dirname(__dirname), 'var/local/script'
     '/etc/scripter/script/'
-    (process.env.HOME ? process.env.USERPROFILE) + '.scripter/script'
+    if process.env.HOME or process.env.USERPROFILE
+      (process.env.HOME ? process.env.USERPROFILE) + '.scripter/script'
   ]
   # delete old files
   debug "remove old #{target} directory"
@@ -38,6 +39,7 @@ module.exports = (cb) ->
       debug "search for scripts..."
       # filter to only existing directories
       async.filter search, (file, cb) ->
+        return cb null, false unless file
         fs.exists file, (exists) -> cb null, exists
       , (_, search) ->
         async.map search, (dir, cb) ->
