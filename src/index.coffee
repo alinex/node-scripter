@@ -53,7 +53,9 @@ exports.job = (name, file) ->
   try
     lib = require file
   catch error
-    exit 1, error if new Error "Problem loading compiled script from #{file}: #{error.message}"
+#    exit 1, error if new Error "Problem loading compiled script from #{file}: #{error.message}"
+    console.error chalk.magenta "Problem loading compiled script from #{file}: #{error.message}"
+    return
   # setup module
   lib.name = name
   lib.report = new Report()
